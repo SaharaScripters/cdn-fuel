@@ -5,6 +5,7 @@ description 'cdn-fuel'
 version '2.1.9'
 
 client_scripts {
+    '@qbx_core/modules/playerdata.lua',
     'client/fuel_cl.lua',
     'client/electric_cl.lua',
     'client/station_cl.lua',
@@ -20,6 +21,7 @@ server_scripts {
 
 shared_scripts {
     '@ox_lib/init.lua', -- OX_Lib, only line this in if you have ox_lib and are using them.
+    '@qbx_core/modules/utils.lua',
     'shared/config.lua',
     '@qbx_core/shared/locale.lua',
     'locales/en.lua',
