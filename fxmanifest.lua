@@ -5,7 +5,6 @@ description 'cdn-fuel'
 version '2.1.9'
 
 client_scripts {
-    '@PolyZone/client.lua',
     'client/fuel_cl.lua',
     'client/electric_cl.lua',
     'client/station_cl.lua',
@@ -20,33 +19,23 @@ server_scripts {
 }
 
 shared_scripts {
+    '@ox_lib/init.lua', -- OX_Lib, only line this in if you have ox_lib and are using them.
     'shared/config.lua',
-    '@qb-core/shared/locale.lua',
-    -- '@ox_lib/init.lua', -- OX_Lib, only line this in if you have ox_lib and are using them.
-    'locales/en.lua', -- English Locales
-    -- 'locales/de.lua', -- German / Deutsch Locales
-    -- 'locales/fr.lua', -- French / Français Locales
-    -- 'locales/es.lua', -- Spanish / Español / Española Locales
-    -- 'locales/ee.lua', -- Estonian Locales
+    '@qbx_core/shared/locale.lua',
+    'locales/en.lua',
 }
 
-exports { -- Call with exports['cdn-fuel']:GetFuel or exports['cdn-fuel']:SetFuel
+exports {
     'GetFuel',
     'SetFuel'
 }
 
 lua54 'yes'
 
-dependencies { -- Make sure these are started before cdn-fuel in your server.cfg!
-    'PolyZone',
+dependencies {
     'interact-sound',
-    -- QB-Core Functionality (Input, Target, Menu)
-    'qb-target',
-    'qb-input',
-    'qb-menu',
-    -- QBox | Overextended Functionalities (Input, Progressbar, Target, Menu etc.)
-    -- 'ox_lib', -- Ox Library
-    -- 'ox_target',
+    'ox_lib',
+    'ox_target',
 }
 
 data_file 'DLC_ITYP_REQUEST' 'stream/[electric_nozzle]/electric_nozzle_typ.ytyp'

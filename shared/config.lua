@@ -1,5 +1,5 @@
 Config = {}
-Config.FuelDebug = false -- Used for debugging, although there are not many areas in yet (Default: false) + Enables Setfuel Commands (0, 50, 100). 
+Config.FuelDebug = false -- Used for debugging, although there are not many areas in yet (Default: false) + Enables Setfuel Commands (0, 50, 100).
 Config.PolyDebug = false -- Enables Polyzone Debugging to see PolyZones!
 Config.ShowNearestGasStationOnly = true -- When enabled, only the nearest gas stations will be shown on the map.
 Config.LeaveEngineRunning = false -- When true, the vehicle's engine will be left running upon exit if the player *HOLDS* F.
@@ -21,17 +21,16 @@ Config.PossibleDeliveryTrucks = {
     "packer",
 }
 Config.DeliveryTruckSpawns = { -- https://i.imgur.com/VS22i8R.jpeg
-    ['trailer'] = vector4(1724.0, -1649.7, 112.57, 194.24),
-    ['truck'] = vector4(1727.08, -1664.01, 112.62, 189.62),
-    ['PolyZone'] = {
-        ['coords'] = {
-            vector2(1724.62, -1672.36),
-            vector2(1719.01, -1648.33),
-            vector2(1730.99, -1645.62),
-            vector2(1734.42, -1673.32),
+    trailer = vector4(1724.0, -1649.7, 112.57, 194.24),
+    truck = vector4(1727.08, -1664.01, 112.62, 189.62),
+    zone = {
+        points = {
+            vector3(1724.62, -1672.36, 112.50),
+            vector3(1719.01, -1648.33, 112.50),
+            vector3(1730.99, -1645.62, 112.50),
+            vector3(1734.42, -1673.32, 112.50),
         },
-        ['minz'] = 110.0,
-        ['maxz'] = 115.0,
+        thickness = 5.0,
     }
 }
 -- 2.1.1 End
@@ -49,23 +48,23 @@ Config.EmergencyServicesDiscount = {
         "ambulance",
     }
 }
-Config.Core = 'qb-core' -- Change this to your core resources (Ex: 'qbx-core' | 'qb-core'), must be qb based!
+Config.Core = 'qbx_core' -- Change this to your core resources (Ex: 'qbx-core' | 'qb-core'), must be qb based!
 Config.Ox = {
-    Inventory = false, -- Uses OX_Inventory's metadata instead of QB-Inventory's.
-    Menu = false, -- Uses OX Libraries instead of qb-menu.
-    Input = false, -- Uses Ox Input Dialog instead of qb-input.
-    DrawText = false, -- Uses Ox DrawText instead of qb-core DrawText.
-    Progress = false -- Uses Ox ProgressBar instead of progressbar.
+    Inventory = true, -- Uses OX_Inventory's metadata instead of QB-Inventory's.
+    Menu = true, -- Uses OX Libraries instead of qb-menu.
+    Input = true, -- Uses Ox Input Dialog instead of qb-input.
+    DrawText = true, -- Uses Ox DrawText instead of qb-core DrawText.
+    Progress = true -- Uses Ox ProgressBar instead of progressbar.
 }
-Config.TargetResource = "qb-target" -- Supported: { 'qb-target', 'ox_target'} -- Others must use the same format as QB-Target or manual configuration is required.
-Config.PumpHose = false -- If true, it creates a hose from the pump to the nozzle the client is holding, to give it a more realistic feel.
+Config.TargetResource = "ox_target" -- Supported: { 'qb-target', 'ox_target'} -- Others must use the same format as QB-Target or manual configuration is required.
+Config.PumpHose = true -- If true, it creates a hose from the pump to the nozzle the client is holding, to give it a more realistic feel.
 Config.RopeType = { -- Options: 1-2-3-4-5; 1: Khaki Color, Kind of Thick, 2: Very Thick Khaki Rope, 3: Very Thick Black Rope, 4: Very Thin Black Rope, 5: Same as 3
-    ['fuel'] = 1,
-    ['electric'] = 1,
+    ['fuel'] = 3,
+    ['electric'] = 4,
 }
 Config.FaceTowardsVehicle = true -- Ped will turn towards the entity's boot bone for refueling, sometimes can result in incorrect nozzle placement when refueling.
 Config.VehicleShutoffOnLowFuel = { -- If enabled, vehicles will turn off when the reach 0 fuel. This works well in conjuction with disallowing people to turn on a vehicle with 0 fuel.
-    ['shutOffLevel'] = 0, -- At this fuel level, the vehicle will shut off. Default: 0, Recommended: 0-5.
+    ['shutOffLevel'] = 5, -- At this fuel level, the vehicle will shut off. Default: 0, Recommended: 0-5.
     ['sounds'] = {
         ['enabled'] = true, -- Are Sounds Enabled when vehicle has no fuel?
         -- Find sound banks and sounds here: https://pastebin.com/A8Ny8AHZ.
@@ -90,7 +89,7 @@ Config.SyphonDispatchSystem = "ps-dispatch" -- Options: "ps-dispatch", "qb-dispa
 Config.UseJerryCan = true -- Enable the Jerry Can functionality. Will only work if properly installed.
 Config.JerryCanCap = 50 -- Maximum amount (in L) the jerrycan can fit! (Default: 50L)
 Config.JerryCanPrice = 200 -- The price of a jerry can, not including tax.
-Config.JerryCanGas = 25 -- The amount of Gas that the Jerry Can you purchase comes with. This should not be bigger that your Config.JerryCanCap!
+Config.JerryCanGas = 0 -- The amount of Gas that the Jerry Can you purchase comes with. This should not be bigger that your Config.JerryCanCap!
 
 -- Animations --
 Config.StealAnimDict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@'-- Used for Syphoning
@@ -101,9 +100,9 @@ Config.RefuelAnimation = "gar_ig_5_filling_can" -- This is for refueling and cha
 Config.RefuelAnimationDictionary = "timetable@gardener@filling_can" -- This is for refueling and charging.
 
 --- Player Owned Gas (Gasoline) Ergonomic Refueling Stations (Poggers) ---
-Config.PlayerOwnedGasStationsEnabled = true -- When true, peds will be located at all gas stations, and players will be able to talk with peds & purchase gas stations, having to manage fuel supplies.
+Config.PlayerOwnedGasStationsEnabled = false -- When true, peds will be located at all gas stations, and players will be able to talk with peds & purchase gas stations, having to manage fuel supplies.
 Config.StationFuelSalePercentage = 0.65 -- % of sales that the station gets. If they sell 4 Liters of Gas for $16 (not including taxes), they will get 16*Config.StationFuelSalePercentage back from the sale. Treat this as tax, also, it balances the profit margins a bit.
-Config.EmergencyShutOff = false -- When true, players can walk up to the ped and shut off the pumps at a gas station. While false, this option is disabled, because it can obviously be an issue. 
+Config.EmergencyShutOff = false -- When true, players can walk up to the ped and shut off the pumps at a gas station. While false, this option is disabled, because it can obviously be an issue.
 Config.UnlimitedFuel = false -- When true, the fuel stations will not require refuelling by gas station owners, this is for the early stages of implementation.
 Config.MaxFuelReserves = 100000 -- This is the maximum amount that the fuel station's reserves can hold.
 Config.FuelReservesPrice = 2.0 -- This is the price of fuel reserves for gas station owners.
@@ -228,17 +227,14 @@ Config.AirAndWaterVehicleFueling = {
     ['locations'] = {
         -- MRPD Helipad
         [1] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(439.96, -973.0),
-                    vector2(458.09, -973.04),
-                    vector2(458.26, -989.47),
-                    vector2(439.58, -989.94),
+            ['zone'] = {
+                points = {
+                    vector3(439.96, -973.0, 45.0),
+                    vector3(458.09, -973.04, 45.0),
+                    vector3(458.26, -989.47, 45.0),
+                    vector3(439.58, -989.94, 45.0),
                 },
-                ['minmax'] = {
-                    ['min'] = 40,
-                    ['max'] = 50.0
-                },
+                thickness = 10.0,
             },
             ['draw_text'] = "[G] Refuel Helicopter",
             ['type'] = 'air',
@@ -256,21 +252,18 @@ Config.AirAndWaterVehicleFueling = {
         },
         -- Pillbox Hospital
         [2] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(340.46, -580.02),
-                    vector2(351.11, -575.06),
-                    vector2(360.2, -578.35),
-                    vector2(364.99, -588.36),
-                    vector2(361.57, -597.44),
-                    vector2(351.71, -601.99),
-                    vector2(342.19, -598.38), 
-                    vector2(337.23, -587.49),
+            ['zone'] = {
+                points = {
+                    vector3(340.46, -580.02, 75.50),
+                    vector3(351.11, -575.06, 75.50),
+                    vector3(360.2, -578.35, 75.50),
+                    vector3(364.99, -588.36, 75.50),
+                    vector3(361.57, -597.44, 75.50),
+                    vector3(351.71, -601.99, 75.50),
+                    vector3(342.19, -598.38, 75.50),
+                    vector3(337.23, -587.49, 75.50),
                 },
-                ['minmax'] = {
-                    ['min'] = 72.50,
-                    ['max'] = 78.50
-                },
+                thickness = 6.0,
             },
             ['draw_text'] = "[G] Refuel Helicopter",
             ['type'] = 'air',
@@ -288,17 +281,14 @@ Config.AirAndWaterVehicleFueling = {
         },
         -- Cental Los Santos Medical Center
         [3] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(287.81, -1454.52),
-                    vector2(298.6, -1441.48),
-                    vector2(325.74, -1464.21),
-                    vector2(314.95, -1477.29),
+            ['zone'] = {
+                points = {
+                    vector3(287.81, -1454.52, 46.75),
+                    vector3(298.6, -1441.48, 46.75),
+                    vector3(325.74, -1464.21, 46.75),
+                    vector3(314.95, -1477.29, 46.75),
                 },
-                ['minmax'] = {
-                    ['min'] = 43.00,
-                    ['max'] = 50.50
-                },
+                thickness = 7.5,
             },
             ['draw_text'] = "[G] Refuel Helicopter",
             ['type'] = 'air',
@@ -316,17 +306,14 @@ Config.AirAndWaterVehicleFueling = {
         },
         -- Devin Weston Terminal
         [4] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-944.57, -2963.51),
-                    vector2(-954.6, -2981.75),
-                    vector2(-929.13, -2996.81),
-                    vector2(-918.35, -2978.74),
+            ['zone'] = {
+                points = {
+                    vector3(-944.57, -2963.51, 15.25),
+                    vector3(-954.6, -2981.75, 15.25),
+                    vector3(-929.13, -2996.81, 15.25),
+                    vector3(-918.35, -2978.74, 15.25),
                 },
-                ['minmax'] = {
-                    ['min'] = 11.00,
-                    ['max'] = 19.50
-                },
+                thickness = 8.5,
             },
             ['draw_text'] = "[G] Refuel Aircraft",
             ['type'] = 'air',
@@ -341,20 +328,17 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(-923.12, -2976.81, 12.95, 149.55),
             }
-        }, 
+        },
         -- Back Right Terminal
         [5] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-1658.47, -3109.69),
-                    vector2(-1645.78, -3085.85),
-                    vector2(-1664.28, -3074.94),
-                    vector2(-1677.93, -3098.61),
+            ['zone'] = {
+                points = {
+                    vector3(-1658.47, -3109.69, 15.75),
+                    vector3(-1645.78, -3085.85, 15.75),
+                    vector3(-1664.28, -3074.94, 15.75),
+                    vector3(-1677.93, -3098.61, 15.75),
                 },
-                ['minmax'] = {
-                    ['min'] = 12.00,
-                    ['max'] = 19.50
-                },
+                thickness = 7.5,
             },
             ['draw_text'] = "[G] Refuel Aircraft",
             ['type'] = 'air',
@@ -372,17 +356,14 @@ Config.AirAndWaterVehicleFueling = {
         },
         -- La Puerta Helicopter Pad #1
         [6] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-701.34, -1441.48),
-                    vector2(-728.05, -1473.15),
-                    vector2(-712.1, -1486.4),
-                    vector2(-685.58, -1454.86),
+            ['zone'] = {
+                points = {
+                    vector3(-701.34, -1441.48, 7.25),
+                    vector3(-728.05, -1473.15, 7.25),
+                    vector3(-712.1, -1486.4, 7.25),
+                    vector3(-685.58, -1454.86, 7.25),
                 },
-                ['minmax'] = {
-                    ['min'] = 4.00,
-                    ['max'] = 10.50
-                },
+                thickness = 6.5,
             },
             ['draw_text'] = "[G] Refuel Aircraft",
             ['type'] = 'air',
@@ -397,20 +378,17 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(-706.13, -1464.14, 4.04, 320.0),
             }
-        },  
+        },
         -- La Puerta Helicopter Pad #2
         [7] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-777.17, -1446.61),
-                    vector2(-761.78, -1459.59),
-                    vector2(-739.92, -1433.25),
-                    vector2(-755.4, -1420.29),
+            ['zone'] = {
+                points = {
+                    vector3(-777.17, -1446.61, 7.25),
+                    vector3(-761.78, -1459.59, 7.25),
+                    vector3(-739.92, -1433.25, 7.25),
+                    vector3(-755.4, -1420.29, 7.25),
                 },
-                ['minmax'] = {
-                    ['min'] = 4.00,
-                    ['max'] = 10.50
-                },
+                thickness = 6.5,
             },
             ['draw_text'] = "[G] Refuel Aircraft",
             ['type'] = 'air',
@@ -425,20 +403,17 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(-764.81, -1434.32, 4.06, 320.0),
             }
-        },  
+        },
         -- La Puerta Boat Dock #1
         [8] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-793.1, -1482.94),
-                    vector2(-786.39, -1500.85),
-                    vector2(-809.39, -1508.94),
-                    vector2(-817.48, -1491.62),
+            ['zone'] = {
+                points = {
+                    vector3(-793.1, -1482.94, 2.75),
+                    vector3(-786.39, -1500.85, 2.75),
+                    vector3(-809.39, -1508.94, 2.75),
+                    vector3(-817.48, -1491.62, 2.75),
                 },
-                ['minmax'] = {
-                    ['min'] = -5.00,
-                    ['max'] = 8.50
-                },
+                thickness = 13.5,
             },
             ['draw_text'] = "[G] Refuel Watercraft",
             ['type'] = 'water',
@@ -453,20 +428,17 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(-805.9, -1496.68, 0.6, 200.00),
             }
-        },  
+        },
         -- Fort Zancudo Military Base Hangar
         [9] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-2145.24, 3291.63),
-                    vector2(-2127.94, 3281.7),
-                    vector2(-2139.37, 3260.35),
-                    vector2(-2157.69, 3271.1),
+            ['zone'] = {
+                points = {
+                    vector3(-2145.24, 3291.63, 33.75),
+                    vector3(-2127.94, 3281.7, 33.75),
+                    vector3(-2139.37, 3260.35, 33.75),
+                    vector3(-2157.69, 3271.1, 33.75),
                 },
-                ['minmax'] = {
-                    ['min'] = 30.00,
-                    ['max'] = 37.50
-                },
+                thickness = 7.5,
             },
             ['draw_text'] = "[G] Refuel Aircraft",
             ['type'] = 'air',
@@ -481,20 +453,17 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(-2148.8, 3283.99, 31.81, 240.0),
             }
-        },  
+        },
         -- Paleto Bay Police Department
         [10] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-497.03, 5987.98),
-                    vector2(-476.48, 6008.6),
-                    vector2(-454.99, 5986.53),
-                    vector2(-475.77, 5966.83),
+            ['zone'] = {
+                points = {
+                    vector3(-497.03, 5987.98, 33.75),
+                    vector3(-476.48, 6008.6, 33.75),
+                    vector3(-454.99, 5986.53, 33.75),
+                    vector3(-475.77, 5966.83, 33.75),
                 },
-                ['minmax'] = {
-                    ['min'] = 30.00,
-                    ['max'] = 37.50
-                },
+                thickness = 7.5,
             },
             ['draw_text'] = "[G] Refuel Aircraft",
             ['type'] = 'air',
@@ -509,20 +478,17 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(-486.22, 5977.65, 30.3, 315.4),
             }
-        },  
+        },
         -- Grapeseed Airfield
         [11] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(2094.41, 4771.26),
-                    vector2(2080.85, 4797.71),
-                    vector2(2104.56, 4811.8),
-                    vector2(2118.06, 4782.09),
+            ['zone'] = {
+                points = {
+                    vector3(2094.41, 4771.26, 43.75),
+                    vector3(2080.85, 4797.71, 43.75),
+                    vector3(2104.56, 4811.8, 43.75),
+                    vector3(2118.06, 4782.09, 43.75),
                 },
-                ['minmax'] = {
-                    ['min'] = 40.00,
-                    ['max'] = 47.50
-                },
+                thickness = 7.5,
             },
             ['draw_text'] = "[G] Refuel Aircraft",
             ['type'] = 'air',
@@ -537,20 +503,17 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(2101.82, 4776.8, 40.02, 21.41),
             }
-        },  
+        },
         -- Grapeseed Airfield
         [12] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(1347.76, 4277.37),
-                    vector2(1330.47, 4279.02),
-                    vector2(1328.53, 4261.64),
-                    vector2(1346.13, 4260.88),
+            ['zone'] = {
+                points = {
+                    vector3(1347.76, 4277.37, 33.75),
+                    vector3(1330.47, 4279.02, 33.75),
+                    vector3(1328.53, 4261.64, 33.75),
+                    vector3(1346.13, 4260.88, 33.75),
                 },
-                ['minmax'] = {
-                    ['min'] = 28.00,
-                    ['max'] = 37.50
-                },
+                thickness = 11.5,
             },
             ['draw_text'] = "[G] Refuel Watercraft",
             ['type'] = 'water',
@@ -565,24 +528,21 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(1338.13, 4269.62, 30.5, 85.00),
             }
-        },  
+        },
         -- Bob Smith PD
         [13] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-1083.85, -837.07),
-                    vector2(-1100.36, -849.84),
-                    vector2(-1108.85, -839.11),
-                    vector2(-1107.04, -837.76),
-                    vector2(-1109.65, -834.04),
-                    vector2(-1104.1, -829.69),
-                    vector2(-1104.29, -829.07),
-                    vector2(-1095.62, -822.42),
+            ['zone'] = {
+                points = {
+                    vector3(-1083.85, -837.07, 39.25),
+                    vector3(-1100.36, -849.84, 39.25),
+                    vector3(-1108.85, -839.11, 39.25),
+                    vector3(-1107.04, -837.76, 39.25),
+                    vector3(-1109.65, -834.04, 39.25),
+                    vector3(-1104.1, -829.69, 39.25),
+                    vector3(-1104.29, -829.07, 39.25),
+                    vector3(-1095.62, -822.42, 39.25),
                 },
-                ['minmax'] = {
-                    ['min'] = 36.00,
-                    ['max'] = 42.50
-                },
+                thickness = 6.5,
             },
             ['draw_text'] = "[G] Refuel Helicopter",
             ['type'] = 'air',
@@ -597,24 +557,21 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(-1089.72, -830.6, 36.68, 129.00),
             }
-        },  
+        },
         -- Merryweather Helipad
         [14] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(488.84, -3383.66),
-                    vector2(489.23, -3356.98),
-                    vector2(467.46, -3356.83),
-                    vector2(467.58, -3383.62),
-                    vector2(472.59, -3383.59),
-                    vector2(472.63, -3382.13),
-                    vector2(476.67, -3382.11),
-                    vector2(476.8, -3383.94),
+            ['zone'] = {
+                points = {
+                    vector3(488.84, -3383.66, 7.50),
+                    vector3(489.23, -3356.98, 7.50),
+                    vector3(467.46, -3356.83, 7.50),
+                    vector3(467.58, -3383.62, 7.50),
+                    vector3(472.59, -3383.59, 7.50),
+                    vector3(472.63, -3382.13, 7.50),
+                    vector3(476.67, -3382.11, 7.50),
+                    vector3(476.8, -3383.94, 7.50),
                 },
-                ['minmax'] = {
-                    ['min'] = 4.50,
-                    ['max'] = 10.50
-                },
+                thickness = 6.0,
             },
             ['draw_text'] = "[G] Refuel Helicopter",
             ['type'] = 'air',
@@ -632,17 +589,14 @@ Config.AirAndWaterVehicleFueling = {
         },
         -- Airport Helipad #1 & #2
         [15] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-1133.49, -2860.32),
-                    vector2(-1143.33, -2877.61),
-                    vector2(-1191.03, -2850.14),
-                    vector2(-1180.98, -2832.84),
+            ['zone'] = {
+                points = {
+                    vector3(-1133.49, -2860.32, 15.50),
+                    vector3(-1143.33, -2877.61, 15.50),
+                    vector3(-1191.03, -2850.14, 15.50),
+                    vector3(-1180.98, -2832.84, 15.50),
                 },
-                ['minmax'] = {
-                    ['min'] = 12.50,
-                    ['max'] = 18.50
-                },
+                thickness = 6.0,
             },
             ['draw_text'] = "[G] Refuel Helicopter",
             ['type'] = 'air',
@@ -660,17 +614,14 @@ Config.AirAndWaterVehicleFueling = {
         },
         -- Airport Helipad #3
         [16] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(-1124.63, -2865.31),
-                    vector2(-1134.74, -2882.56),
-                    vector2(-1108.76, -2897.71),
-                    vector2(-1099.04, -2880.39),
+            ['zone'] = {
+                points = {
+                    vector3(-1124.63, -2865.31, 15.50),
+                    vector3(-1134.74, -2882.56, 15.50),
+                    vector3(-1108.76, -2897.71, 15.50),
+                    vector3(-1099.04, -2880.39, 15.50),
                 },
-                ['minmax'] = {
-                    ['min'] = 12.50,
-                    ['max'] = 18.50
-                },
+                thickness = 6.0,
             },
             ['draw_text'] = "[G] Refuel Helicopter",
             ['type'] = 'air',
@@ -688,17 +639,14 @@ Config.AirAndWaterVehicleFueling = {
         },
         -- Sandy Shores Helipad
         [17] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(1764.15, 3226.34),
-                    vector2(1758.66, 3246.44),
-                    vector2(1777.28, 3250.51),
-                    vector2(1781.89, 3230.8),
+            ['zone'] = {
+                points = {
+                    vector3(1764.15, 3226.34, 43.75),
+                    vector3(1758.66, 3246.44, 43.75),
+                    vector3(1777.28, 3250.51, 43.75),
+                    vector3(1781.89, 3230.8, 43.75),
                 },
-                ['minmax'] = {
-                    ['min'] = 40.50,
-                    ['max'] = 47.50
-                },
+                thickness = 7.5,
             },
             ['draw_text'] = "[G] Refuel Helicopter",
             ['type'] = 'air',
@@ -716,18 +664,15 @@ Config.AirAndWaterVehicleFueling = {
         },
         -- Sandy Shores Hangar
         [18] = {
-            ['PolyZone'] = {
-                ['coords'] = {
-                    vector2(1755.37, 3301.3),
-                    vector2(1764.9, 3294.63),
-                    vector2(1769.42, 3277.19),
-                    vector2(1728.83, 3266.58),
-                    vector2(1721.75, 3291.6),
+            ['zone'] = {
+                points = {
+                    vector3(1755.37, 3301.3, 43.75),
+                    vector3(1764.9, 3294.63, 43.75),
+                    vector3(1769.42, 3277.19, 43.75),
+                    vector3(1728.83, 3266.58, 43.75),
+                    vector3(1721.75, 3291.6, 43.75),
                 },
-                ['minmax'] = {
-                    ['min'] = 40.00,
-                    ['max'] = 47.50
-                },
+                thickness = 7.5,
             },
             ['draw_text'] = "[G] Refuel Aircraft",
             ['type'] = 'air',
@@ -743,39 +688,6 @@ Config.AirAndWaterVehicleFueling = {
                 ['coords'] = vector4(1748.31, 3297.08, 40.16, 15.0),
             }
         },
-        -- La Mesa Landing Pad (Custom)
-        -- Does not work in conjunction with Gabz Trooper PD.
-        -- [19] = {
-        --     ['PolyZone'] = {
-        --         ['coords'] = {
-        --             vector2(830.66, -1378.54),
-        --             vector2(834.87, -1382.59),
-        --             vector2(834.81, -1388.5),
-        --             vector2(830.75, -1392.54),
-        --             vector2(824.96, -1392.58),
-        --             vector2(820.8, -1388.39),
-        --             vector2(820.84, -1382.65),
-        --             vector2(824.97, -1378.52)
-        --         },
-        --         ['minmax'] = {
-        --             ['min'] = 35.67,
-        --             ['max'] = 38.67
-        --         },
-        --     },
-        --     ['draw_text'] = "[G] Refuel Aircraft",
-        --     ['type'] = 'air',
-        --     ['whitelist'] = {
-        --         ['enabled'] = false,
-        --         ['on_duty_only'] = true,
-        --         ['whitelisted_jobs'] = {
-        --             'police', 'ambulance',
-        --         }
-        --     },
-        --     ['prop'] = {
-        --         ['model'] = 'prop_gas_pump_1c',
-        --         ['coords'] = vector4(827.55, -1378.57, 36.67, 1.11)
-        --     }
-        -- }
     },
     ['refuel_button'] = 47, -- "G" Button for Draw Text.
     ['nozzle_length'] = 20.0, -- The max distance you can go from the "Special Pump" before the nozzle in returned to the pump.
@@ -785,19 +697,20 @@ Config.AirAndWaterVehicleFueling = {
 
 Config.GasStations = { -- Configuration options for various gas station related things, including peds, coords and labels.
     [1] = {
-        zones = {
-            vector2(176.89, -1538.26),
-            vector2(151.52, -1560.98),
-            vector2(168.56, -1577.65),
-            vector2(196.97, -1563.64)
+        zone = {
+            points = {
+                vector3(176.89, -1538.26, 29.25),
+                vector3(151.52, -1560.98, 29.25),
+                vector3(168.56, -1577.65, 29.25),
+                vector3(196.97, -1563.64, 29.25),
+            },
+            thickness = 2.1,
         },
-        minz = 28.2,
-        maxz = 30.3,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 167.06, 
+            x = 167.06,
             y = -1553.56,
             z = 28.26,
             h = 220.44,
@@ -807,20 +720,21 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Davis Avenue Ron",
     },
     [2] = {
-        zones = {
-            vector2(-53.03, -1737.50),
-            vector2(-92.80, -1751.89),
-            vector2(-91.29, -1759.09),
-            vector2(-65.53, -1782.58),
-            vector2(-36.36, -1751.52)
+        zone = {
+            points = {
+                vector3(-53.03, -1737.50, 29.26),
+                vector3(-92.80, -1751.89, 29.26),
+                vector3(-91.29, -1759.09, 29.26),
+                vector3(-65.53, -1782.58, 29.26),
+                vector3(-36.36, -1751.52, 29.26),
+            },
+            thickness = 2.2,
         },
-        minz = 28.2,
-        maxz = 30.4,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = -40.94, 
+            x = -40.94,
             y = -1751.7,
             z = 28.42,
             h = 140.72,
@@ -830,19 +744,20 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Grove Street LTD",
     },
     [3] = {
-        zones = {
-            vector2(-543.94, -1218.18),
-            vector2(-533.71, -1191.67),
-            vector2(-500.00, -1204.55),
-            vector2(-521.97, -1232.58)
+        zone = {
+            points = {
+                vector3(-543.94, -1218.18, 19.22),
+                vector3(-533.71, -1191.67, 19.22),
+                vector3(-500.00, -1204.55, 19.22),
+                vector3(-521.97, -1232.58, 19.22),
+            },
+            thickness = 3.64,
         },
-        minz = 17.4,
-        maxz = 21.04,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = -531.2, 
+            x = -531.2,
             y = -1220.83,
             z = 17.45,
             h = 335.73,
@@ -852,21 +767,22 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Dutch London Xero",
     },
     [4] = {
-        zones = { 
-            vector2(-696.77, -948.94),
-            vector2(-739.47, -951.07),
-            vector2(-734.73, -906.5),
-            vector2(-711.0, -906.76),
-            vector2(-710.65, -903.27),
-            vector2(-696.82, -903.21),
+        zone = {
+            points = {
+                vector3(-696.77, -948.94, 19.2),
+                vector3(-739.47, -951.07, 19.2),
+                vector3(-734.73, -906.5, 19.2),
+                vector3(-711.0, -906.76, 19.2),
+                vector3(-710.65, -903.27, 19.2),
+                vector3(-696.82, -903.21, 19.2),
+            },
+            thickness = 2.4,
         },
-        minz = 18.0,
-        maxz = 20.4,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = -705.66, 
+            x = -705.66,
             y = -905.04,
             z = 18.22,
             h = 179.46,
@@ -876,19 +792,20 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Little Seoul LTD",
     },
     [5] = {
-        zones = {
-            vector2(243.18, -1281.82),
-            vector2(243.94, -1228.41),
-            vector2(299.62, -1228.03),
-            vector2(300.76, -1286.36)
+        zone = {
+            points = {
+                vector3(243.18, -1281.82, 29.7),
+                vector3(243.94, -1228.41, 29.7),
+                vector3(299.62, -1228.03, 29.7),
+                vector3(300.76, -1286.36, 29.7),
+            },
+            thickness = 3.2,
         },
-        minz = 28.1,
-        maxz = 31.3,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 288.83, 
+            x = 288.83,
             y = -1267.01,
             z = 28.44,
             h = 93.81,
@@ -899,19 +816,20 @@ Config.GasStations = { -- Configuration options for various gas station related 
 
     },
     [6] = {
-        zones = {
-            vector2(798.48, -1017.05),
-            vector2(801.89, -1061.74),
-            vector2(847.73, -1063.26),
-            vector2(845.08, -1015.91)
+        zone = {
+            points = {
+                vector3(798.48, -1017.05, 26.6),
+                vector3(801.89, -1061.74, 26.6),
+                vector3(847.73, -1063.26, 26.6),
+                vector3(845.08, -1015.91, 26.6),
+            },
+            thickness = 3.0,
         },
-        minz = 25.1,
-        maxz = 28.1,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 816.42, 
+            x = 816.42,
             y = -1040.51,
             z = 25.75,
             h = 2.07,
@@ -921,21 +839,22 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Popular Street Ron",
     },
     [7] = {
-        zones = {
-            vector2(1212.12, -1381.44),
-            vector2(1221.21, -1395.08),
-            vector2(1219.70, -1403.41),
-            vector2(1207.58, -1417.05),
-            vector2(1194.70, -1418.94),
-            vector2(1192.80, -1389.02)
+        zone = {
+            points = {
+                vector3(1212.12, -1381.44, 35.2),
+                vector3(1221.21, -1395.08, 35.2),
+                vector3(1219.70, -1403.41, 35.2),
+                vector3(1207.58, -1417.05, 35.2),
+                vector3(1194.70, -1418.94, 35.2),
+                vector3(1192.80, -1389.02, 35.2),
+            },
+            thickness = 2.2,
         },
-        minz = 34.1,
-        maxz = 36.3,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 1211.13, 
+            x = 1211.13,
             y = -1389.18,
             z = 34.38,
             h = 177.39,
@@ -945,20 +864,21 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Capital Blvd Ron",
     },
     [8] = {
-        zones = {
-            vector2(1188.28, -306.38),
-            vector2(1145.24, -314.19),
-            vector2(1150.81, -346.52),
-            vector2(1195.44, -353.92),
-            vector2(1197.01, -340.55),
+        zone = {
+            points = {
+                vector3(1188.28, -306.38, 68.9),
+                vector3(1145.24, -314.19, 68.9),
+                vector3(1150.81, -346.52, 68.9),
+                vector3(1195.44, -353.92, 68.9),
+                vector3(1197.01, -340.55, 68.9),
+            },
+            thickness = 3.6,
         },
-        minz = 67.1,
-        maxz = 70.7,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 1163.64, 
+            x = 1163.64,
             y = -314.21,
             z = 68.21,
             h = 190.92,
@@ -968,21 +888,22 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Mirror Park LTD",
     },
     [9] = {
-        zones = {
-            vector2(650.76, 229.92),
-            vector2(599.24, 256.44),
-            vector2(598.48, 271.21),
-            vector2(610.61, 287.88),
-            vector2(634.85, 289.39),
-            vector2(664.77, 271.21)
+        zone = {
+            points = {
+                vector3(650.76, 229.92, 103.35),
+                vector3(599.24, 256.44, 103.35),
+                vector3(598.48, 271.21, 103.35),
+                vector3(610.61, 287.88, 103.35),
+                vector3(634.85, 289.39, 103.35),
+                vector3(664.77, 271.21, 103.35),
+            },
+            thickness = 2.9,
         },
-        minz = 101.9,
-        maxz = 104.8,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 642.08, 
+            x = 642.08,
             y = 260.59,
             z = 102.3,
             h = 61.39,
@@ -992,19 +913,20 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Clinton Ave Globe Oil",
     },
     [10] = {
-        zones = {
-            vector2(-1460.98, -276.89),
-            vector2(-1419.32, -237.12),
-            vector2(-1390.91, -270.45),
-            vector2(-1435.23, -305.68)
+        zone = {
+            points = {
+                vector3(-1460.98, -276.89, 46.15),
+                vector3(-1419.32, -237.12, 46.15),
+                vector3(-1390.91, -270.45, 46.15),
+                vector3(-1435.23, -305.68, 46.15),
+            },
+            thickness = 2.3,
         },
-        minz = 45.0,
-        maxz = 47.3,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = -1428.4, 
+            x = -1428.4,
             y = -268.69,
             z = 45.21,
             h = 132.94,
@@ -1014,21 +936,22 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "North Rockford Ron",
     },
     [11] = {
-        zones = {
-            vector2(-2135.61, -327.27),
-            vector2(-2134.85, -286.36),
-            vector2(-2051.52, -300.00),
-            vector2(-2054.55, -345.45),
-            vector2(-2081.82, -347.73),
-            vector2(-2113.64, -343.18)
+        zone = {
+            points = {
+                vector3(-2135.61, -327.27, 13.15),
+                vector3(-2134.85, -286.36, 13.15),
+                vector3(-2051.52, -300.00, 13.15),
+                vector3(-2054.55, -345.45, 13.15),
+                vector3(-2081.82, -347.73, 13.15),
+                vector3(-2113.64, -343.18, 13.15),
+            },
+            thickness = 2.3,
         },
-        minz = 12.0,
-        maxz = 14.3,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = -2074.28, 
+            x = -2074.28,
             y = -327.22,
             z = 12.32,
             h = 132.94,
@@ -1038,20 +961,21 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Great Ocean Xero",
     },
     [12] = {
-        zones = {
-            vector2(-91.5, 6431.47),
-            vector2(-77.83, 6419.75),
-            vector2(-101.06, 6397.01),
-            vector2(-113.59, 6409.91)
+        zone = {
+            points = {
+                vector3(-91.5, 6431.47, 31.92),
+                vector3(-77.83, 6419.75, 31.92),
+                vector3(-101.06, 6397.01, 31.92),
+                vector3(-113.59, 6409.91, 31.92),
+            },
+            thickness = 3.16,
         },
-        minz = 30.34,
-        maxz = 33.5,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = -93.02, 
+            x = -93.02,
             y = 6410.11,
             z = 30.64,
             h = 49.19,
@@ -1061,21 +985,22 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Paleto Blvd Xero",
     },
     [13] = {
-        zones = {
-            vector2(167.08, 6631.73),
-            vector2(176.47, 6640.66),
-            vector2(199.71, 6632.08),
-            vector2(202.3, 6597.25),
-            vector2(162.95, 6590.22),
-            vector2(158.64, 6610.64),
+        zone = {
+            points = {
+                vector3(167.08, 6631.73, 32.05),
+                vector3(176.47, 6640.66, 32.05),
+                vector3(199.71, 6632.08, 32.05),
+                vector3(202.3, 6597.25, 32.05),
+                vector3(162.95, 6590.22, 32.05),
+                vector3(158.64, 6610.64, 32.05),
+            },
+            thickness = 2.7,
         },
-        minz = 30.7,
-        maxz = 33.4,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 170.44, 
+            x = 170.44,
             y = 6633.74,
             z = 30.59,
             h = 221.95,
@@ -1085,19 +1010,20 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Paleto Ron",
     },
     [14] = {
-        zones = {
-            vector2(1684.5, 6413.73),
-            vector2(1693.67, 6431.38),
-            vector2(1721.72, 6428.14),
-            vector2(1710.47, 6402.65)
+        zone = {
+            points = {
+                vector3(1684.5, 6413.73, 32.8),
+                vector3(1693.67, 6431.38, 32.8),
+                vector3(1721.72, 6428.14, 32.8),
+                vector3(1710.47, 6402.65, 32.8),
+            },
+            thickness = 2.8,
         },
-        minz = 31.4,
-        maxz = 34.2,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 1698.62, 
+            x = 1698.62,
             y = 6425.84,
             z = 31.76,
             h = 156.61,
@@ -1107,21 +1033,22 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Paleto Globe Oil",
     },
     [15] = {
-        zones = {
-            vector2(1696.59, 4939.02),
-            vector2(1723.48, 4920.08),
-            vector2(1698.11, 4886.74),
-            vector2(1669.70, 4907.20),
-            vector2(1678.41, 4929.17)
+        zone = {
+            points = {
+                vector3(1696.59, 4939.02, 42.11),
+                vector3(1723.48, 4920.08, 42.11),
+                vector3(1698.11, 4886.74, 42.11),
+                vector3(1669.70, 4907.20, 42.11),
+                vector3(1678.41, 4929.17, 42.11),
+            },
+            thickness = 2.12,
         },
-        minz = 41.05,
-        maxz = 43.17,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
-        shutoff = false, 
+        shutoff = false,
         pedcoords = {
-            x = 1704.59, 
+            x = 1704.59,
             y = 4917.5,
             z = 41.06,
             h = 52.16,
@@ -1131,20 +1058,21 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Grapeseed LTD",
     },
     [16] = {
-        zones = {
-            vector2(1972.35, 3777.27),
-            vector2(1989.02, 3748.11),
-            vector2(2018.18, 3762.12),
-            vector2(2001.52, 3790.91)
+        zone = {
+            points = {
+                vector3(1972.35, 3777.27, 32.39),
+                vector3(1989.02, 3748.11, 32.39),
+                vector3(2018.18, 3762.12, 32.39),
+                vector3(2001.52, 3790.91, 32.39),
+            },
+            thickness = 2.42,
         },
-        minz = 31.18,
-        maxz = 33.60, 
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
-        shutoff = false, 
+        shutoff = false,
         pedcoords = {
-            x = 2001.33, 
+            x = 2001.33,
             y = 3779.87,
             z = 31.18,
             h = 211.44,
@@ -1154,20 +1082,21 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Sandy Shores Xero",
     },
     [17] = {
-        zones = {
-            vector2(1774.24, 3308.71),
-            vector2(1752.65, 3345.83),
-            vector2(1784.47, 3357.95),
-            vector2(1808.71, 3321.21)
+        zone = {
+            points = {
+                vector3(1774.24, 3308.71, 41.8),
+                vector3(1752.65, 3345.83, 41.8),
+                vector3(1784.47, 3357.95, 41.8),
+                vector3(1808.71, 3321.21, 41.8),
+            },
+            thickness = 5.6,
         },
-        minz = 39.0,
-        maxz = 44.6,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 1776.57, 
+            x = 1776.57,
             y = 3327.36,
             z = 40.43,
             h = 297.57,
@@ -1177,20 +1106,21 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Sandy Shores Globe Oil",
     },
     [18] = {
-        zones = {
-            vector2(2671.21, 3290.53),
-            vector2(2649.62, 3254.55),
-            vector2(2682.95, 3237.50),
-            vector2(2703.79, 3275.38)
+        zone = {
+            points = {
+                vector3(2671.21, 3290.53, 55.32),
+                vector3(2649.62, 3254.55, 55.32),
+                vector3(2682.95, 3237.50, 55.32),
+                vector3(2703.79, 3275.38, 55.32),
+            },
+            thickness = 2.16,
         },
-        minz = 54.24,
-        maxz = 56.4,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
-        shutoff = false, 
+        shutoff = false,
         pedcoords = {
-            x = 2673.98, 
+            x = 2673.98,
             y = 3266.87,
             z = 54.24,
             h = 240.9,
@@ -1200,22 +1130,23 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Senora Freeway Xero",
     },
     [19] = {
-        zones = {
-            vector2(1188.64, 2651.89),
-            vector2(1202.27, 2663.64),
-            vector2(1212.50, 2661.74),
-            vector2(1217.05, 2651.52),
-            vector2(1210.61, 2633.33),
-            vector2(1201.52, 2638.26)
+        zone = {
+            points = {
+                vector3(1188.64, 2651.89, 37.775),
+                vector3(1202.27, 2663.64, 37.775),
+                vector3(1212.50, 2661.74, 37.775),
+                vector3(1217.05, 2651.52, 37.775),
+                vector3(1210.61, 2633.33, 37.775),
+                vector3(1201.52, 2638.26, 37.775),
+            },
+            thickness = 2.15,
         },
-        minz = 36.7,
-        maxz = 38.85,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 1201.68, 
+            x = 1201.68,
             y = 2655.24,
             z = 36.85,
             h = 322.97,
@@ -1225,20 +1156,21 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Harmony Globe Oil",
     },
     [20] = {
-        zones = {
-            vector2(1026.14, 2669.70),
-            vector2(1028.03, 2640.91),
-            vector2(1058.33, 2640.53),
-            vector2(1055.30, 2668.94)
+        zone = {
+            points = {
+                vector3(1026.14, 2669.70, 39.395),
+                vector3(1028.03, 2640.91, 39.395),
+                vector3(1058.33, 2640.53, 39.395),
+                vector3(1055.30, 2668.94, 39.395),
+            },
+            thickness = 2.31,
         },
-        minz = 38.24,
-        maxz = 40.55,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 1039.44, 
+            x = 1039.44,
             y = 2664.37,
             z = 38.55,
             h = 10.07,
@@ -1248,21 +1180,22 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Route 68 Globe Oil",
     },
     [21] = {
-        zones = {
-            vector2(269.70, 2606.44),
-            vector2(275.38, 2585.23),
-            vector2(241.29, 2576.52),
-            vector2(235.23, 2609.09),
-            vector2(268.56, 2617.05)
+        zone = {
+            points = {
+                vector3(269.70, 2606.44, 44.775),
+                vector3(275.38, 2585.23, 44.775),
+                vector3(241.29, 2576.52, 44.775),
+                vector3(235.23, 2609.09, 44.775),
+                vector3(268.56, 2617.05, 44.775),
+            },
+            thickness = 2.35,
         },
-        minz = 43.60,
-        maxz = 45.95,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 265.89, 
+            x = 265.89,
             y = 2598.3,
             z = 43.84,
             h = 9.88,
@@ -1272,20 +1205,21 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Route 68 Workshop Globe Oil",
     },
     [22] = {
-        zones = {
-            vector2(46.59, 2795.45),
-            vector2(27.65, 2775.76),
-            vector2(49.24, 2754.55),
-            vector2(68.56, 2778.03)
+        zone = {
+            points = {
+                vector3(46.59, 2795.45, 57.85),
+                vector3(27.65, 2775.76, 57.85),
+                vector3(49.24, 2754.55, 57.85),
+                vector3(68.56, 2778.03, 57.85),
+            },
+            thickness = 2.1,
         },
-        minz = 56.8,
-        maxz = 58.9,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 46.53, 
+            x = 46.53,
             y = 2789.05,
             z = 56.88,
             h = 143.93,
@@ -1295,15 +1229,16 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Route 68 Xero",
     },
     [23] = {
-        zones = {
-            vector2(-2562.12, 2340.53),
-            vector2(-2560.98, 2299.62),
-            vector2(-2514.39, 2300.76),
-            vector2(-2516.29, 2314.02),
-            vector2(-2523.86, 2344.70)
+        zone = {
+            points = {
+                vector3(-2562.12, 2340.53, 33.065),
+                vector3(-2560.98, 2299.62, 33.065),
+                vector3(-2514.39, 2300.76, 33.065),
+                vector3(-2516.29, 2314.02, 33.065),
+                vector3(-2523.86, 2344.70, 33.065),
+            },
+            thickness = 2.03,
         },
-        minz = 32.05,
-        maxz = 34.08,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
@@ -1318,21 +1253,22 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Route 68 Ron",
     },
     [24] = {
-        zones = {
-            vector2(2545.08, 2601.14),
-            vector2(2556.06, 2573.11),
-            vector2(2545.83, 2568.56),
-            vector2(2531.06, 2601.14),
-            vector2(2540.91, 2599.24)
+        zone = {
+            points = {
+                vector3(2545.08, 2601.14, 37.94),
+                vector3(2556.06, 2573.11, 37.94),
+                vector3(2545.83, 2568.56, 37.94),
+                vector3(2531.06, 2601.14, 37.94),
+                vector3(2540.91, 2599.24, 37.94),
+            },
+            thickness = 2.0,
         },
-        minz = 36.94,
-        maxz = 38.94,
         pumpheightadd = 1.5, --  For Config.PumpHose
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 2545.02, 
+            x = 2545.02,
             y = 2591.72,
             z = 36.96,
             h = 113.52,
@@ -1342,15 +1278,16 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Rex's Diner Globe Oil",
     },
     [25] = {
-        zones = {
-            vector2(2540.15, 373.86),
-            vector2(2538.26, 345.83),
-            vector2(2592.80, 343.56),
-            vector2(2594.70, 369.70),
-            vector2(2557.58, 384.85)
+        zone = {
+            points = {
+                vector3(2540.15, 373.86, 108.4),
+                vector3(2538.26, 345.83, 108.4),
+                vector3(2592.80, 343.56, 108.4),
+                vector3(2594.70, 369.70, 108.4),
+                vector3(2557.58, 384.85, 108.4),
+            },
+            thickness = 2.0,
         },
-        minz = 107.4,
-        maxz = 109.4,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
@@ -1365,14 +1302,15 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "Palmino Freeway Ron",
     },
     [26] = {
-        zones = {
-            vector2(-1820.41, 767.31),
-            vector2(-1775.49, 802.95),
-            vector2(-1798.5, 828.42),
-            vector2(-1841.71, 791.66)
+        zone = {
+            points = {
+                vector3(-1820.41, 767.31, 138.27),
+                vector3(-1775.49, 802.95, 138.27),
+                vector3(-1798.5, 828.42, 138.27),
+                vector3(-1841.71, 791.66, 138.27),
+            },
+            thickness = 3.26,
         },
-        minz = 136.64,
-        maxz = 139.9,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
@@ -1387,14 +1325,15 @@ Config.GasStations = { -- Configuration options for various gas station related 
         label = "North Rockford LTD",
     },
     [27] = {
-        zones = {
-            vector2(-354.55, -1452.65),
-            vector2(-354.17, -1499.62),
-            vector2(-301.52, -1497.73),
-            vector2(-296.59, -1453.03)
+        zone = {
+            points = {
+                vector3(-354.55, -1452.65, 30.7),
+                vector3(-354.17, -1499.62, 30.7),
+                vector3(-301.52, -1497.73, 30.7),
+                vector3(-296.59, -1453.03, 30.7),
+            },
+            thickness = 2.4,
         },
-        minz = 29.5,
-        maxz = 31.9,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
@@ -1410,14 +1349,16 @@ Config.GasStations = { -- Configuration options for various gas station related 
     },
     --[[
     [28] = { -- Gabz Ottos Autos Location, Line In If Needed.
-        zones = {
-            vector2(794.27795410156, -802.88677978516),
-            vector2(794.19073486328, -784.70434570313),
-            vector2(834.78155517578, -784.63250732422),
-            vector2(843.86151123047, -801.45819091797),
-            vector2(823.64239501953, -801.69488525391),
-            vector2(811.66571044922, -803.15899658203)
+        zone = {
+            points = {
+            vector3(794.27795410156, -802.88677978516),
+            vector3(794.19073486328, -784.70434570313),
+            vector3(834.78155517578, -784.63250732422),
+            vector3(843.86151123047, -801.45819091797),
+            vector3(823.64239501953, -801.69488525391),
+            vector3(811.66571044922, -803.15899658203)
         },
+    }
         minz = 26.0,
         maxz = 27.0,
         pedmodel = "a_m_m_indian_01",
@@ -1436,12 +1377,14 @@ Config.GasStations = { -- Configuration options for various gas station related 
     ]]
     --[[
     [29] = { -- Car Meet Location, Line In If Needed.
-        zones = {
-            vector2(968.98, -1754.89),
-            vector2(962.97, -1754.32),
-            vector2(963.62, -1746.29),
-            vector2(969.61, -1746.84)
+        zone = {
+            points = {
+            vector3(968.98, -1754.89),
+            vector3(962.97, -1754.32),
+            vector3(963.62, -1746.29),
+            vector3(969.61, -1746.84)
         },
+    }
         minz = 20.0,
         maxz = 22.0,
         pedmodel = "u_m_y_smugmech_01",
@@ -1460,15 +1403,17 @@ Config.GasStations = { -- Configuration options for various gas station related 
     ]]
     --[[ Example of a New Location
     [29] = {
-        zones = {
+        zone = {
+            points = {
              https://skyrossm.github.io/PolyZoneCreator/
              Use this for a quick way to add a Gas Station, instead of doing it in game, make sure you included the entire area, including the ped and electric pumps if used.
         },
+    }
         minz = 0,
         maxz = 800.0,
         pedmodel = "a_m_m_indian_01", -- This is the model of the ped that will be created for the management menu @ the gas station.
         cost = 100000, -- This is the cost of the gas station for someone purchasing it, not including tax.
-        shutoff = false, -- Leave as false, this is for when someone turns off the pumps. 
+        shutoff = false, -- Leave as false, this is for when someone turns off the pumps.
         pedcoords = { -- Vector4, X, Y, Z & Heading.
             x = -342.37,
             y = -1482.97,
