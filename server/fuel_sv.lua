@@ -18,7 +18,7 @@ RegisterNetEvent("cdn-fuel:server:OpenMenu", function(amount, inGasStation, hasW
 	if not src then return end
 	local player = exports.qbx_core:GetPlayer(src)
 	if not player then return end
-	if not amount then if Config.FuelDebug then print("Amount is invalid!") end exports.qbx_core:notify(src, Lang:t("more_than_zero"), 'error') return end
+	if not amount then if Config.FuelDebug then print("Amount is invalid!") end exports.qbx_core:Notify(src, Lang:t("more_than_zero"), 'error') return end
 	local FuelCost = amount*FuelPrice
 	local tax = GlobalTax(FuelCost)
 	local total = tonumber(FuelCost + tax)

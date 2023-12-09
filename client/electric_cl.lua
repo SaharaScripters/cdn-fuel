@@ -98,7 +98,7 @@ if Config.ElectricVehicleCharging then
             end
 
             if shouldRecieveDiscount == true and not QBX.PlayerData.job.onduty and Config.EmergencyServicesDiscount['ondutyonly'] then
-                exports.qbx_core:notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
+                exports.qbx_core:Notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
 				shouldRecieveDiscount = false
 			end
 
@@ -160,14 +160,14 @@ if Config.ElectricVehicleCharging then
 
         if Electricity then
             if not ElectricityAmount then if Config.FuelDebug then print("ElectricityAmount is invalid!") end return end
-            if not HoldingElectricNozzle then exports.qbx_core:notify(Lang:t("electric_no_nozzle"), 'error', 7500) return end
+            if not HoldingElectricNozzle then exports.qbx_core:Notify(Lang:t("electric_no_nozzle"), 'error', 7500) return end
             if (ElectricityAmount + finalfuel) >= 100 then
-                exports.qbx_core:notify(Lang:t("tank_already_full"), "error")
+                exports.qbx_core:Notify(Lang:t("tank_already_full"), "error")
             else
                 if GlobalTax(ElectricityAmount * FuelPrice) + (ElectricityAmount * FuelPrice) <= money then
                     TriggerServerEvent('cdn-fuel:server:electric:OpenMenu', ElectricityAmount, IsInGasStation(), false, purchasetype, FuelPrice)
                 else
-                    exports.qbx_core:notify(Lang:t("not_enough_money"), 'error', 7500)
+                    exports.qbx_core:Notify(Lang:t("not_enough_money"), 'error', 7500)
                 end
             end
         end
@@ -184,7 +184,7 @@ if Config.ElectricVehicleCharging then
         if not AwaitingElectricCheck and FoundElectricVehicle then
             local CurFuel = GetVehicleFuelLevel(vehicle)
             local playercashamount = QBX.PlayerData.money['cash']
-            if not IsHoldingElectricNozzle() then exports.qbx_core:notify(Lang:t("electric_no_nozzle"), 'error', 7500)  return end
+            if not IsHoldingElectricNozzle() then exports.qbx_core:Notify(Lang:t("electric_no_nozzle"), 'error', 7500)  return end
             if CurFuel < 95 then
                 lib.registerContext({
                     id = 'electricmenu',
@@ -219,7 +219,7 @@ if Config.ElectricVehicleCharging then
                 })
                 lib.showContext('electricmenu')
             else
-                exports.qbx_core:notify(Lang:t("tank_already_full"), 'error')
+                exports.qbx_core:Notify(Lang:t("tank_already_full"), 'error')
             end
         else
             if Config.FuelDebug then print("Checking") end
@@ -261,7 +261,7 @@ if Config.ElectricVehicleCharging then
                 --     end
                 -- end
             else
-                exports.qbx_core:notify(Lang:t("electric_vehicle_not_electric"), 'error', 7500)
+                exports.qbx_core:Notify(Lang:t("electric_vehicle_not_electric"), 'error', 7500)
             end
         end
     end)
@@ -308,7 +308,7 @@ if Config.ElectricVehicleCharging then
             end
 
             if shouldRecieveDiscount == true and not QBX.PlayerData.job.onduty and Config.EmergencyServicesDiscount['ondutyonly'] then
-                exports.qbx_core:notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
+                exports.qbx_core:Notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
 				shouldRecieveDiscount = false
 			end
 
@@ -478,7 +478,7 @@ if Config.ElectricVehicleCharging then
                     TargetCreated = true
                     HoldingElectricNozzle = false
                     DeleteObject(ElectricNozzle)
-                    exports.qbx_core:notify(Lang:t("nozzle_cannot_reach"), 'error')
+                    exports.qbx_core:Notify(Lang:t("nozzle_cannot_reach"), 'error')
                     if Config.PumpHose == true then
                         if Config.FuelDebug then print("Removing ELECTRIC Rope.") end
                         RopeUnloadTextures()
@@ -503,7 +503,7 @@ if Config.ElectricVehicleCharging then
                             if Config.FuelDebug then print("Attempting to charge vehicle.") end
                             TriggerEvent('cdn-fuel:client:electric:ChargeVehicle', purchasetype, fuelamounttotal)
                         else
-                            exports.qbx_core:notify(Lang:t("electric_more_than_zero"), 'error', 7500)
+                            exports.qbx_core:Notify(Lang:t("electric_more_than_zero"), 'error', 7500)
                         end
                     end
                 end
@@ -535,7 +535,7 @@ if Config.ElectricVehicleCharging then
                 end
 
                 if shouldRecieveDiscount == true and not QBX.PlayerData.job.onduty and Config.EmergencyServicesDiscount['ondutyonly'] then
-                    exports.qbx_core:notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
+                    exports.qbx_core:Notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
                     shouldRecieveDiscount = false
                 end
 
@@ -573,7 +573,7 @@ if Config.ElectricVehicleCharging then
             local success = exports['qb-phone']:PhoneNotification(Lang:t("electric_phone_header"), Lang:t("electric_phone_notification")..total, 'fas fa-bolt', '#9f0e63', "NONE", 'fas fa-check-circle', 'fas fa-times-circle')
             if success then
                 if QBX.PlayerData.money['bank'] <= (GlobalTax(amount) + amount) then
-                    exports.qbx_core:notify(Lang:t("not_enough_money_in_bank"), "error")
+                    exports.qbx_core:Notify(Lang:t("not_enough_money_in_bank"), "error")
                 else
                     TriggerServerEvent('cdn-fuel:server:PayForFuel', total, "bank", FuelPrice, true)
                     RefuelPossible = true
