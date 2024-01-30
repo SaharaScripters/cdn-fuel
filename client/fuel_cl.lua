@@ -444,7 +444,7 @@ RegisterNetEvent('cdn-fuel:client:grabnozzle', function()
 		if holdingnozzle then return end
 		LoadAnimDict("anim@am_hold_up@male")
 		TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
-		TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
+		--TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
 		Wait(300)
 		StopAnimTask(ped, "anim@am_hold_up@male", "shoplift_high", 1.0)
 		fuelnozzle = CreateObject(joaat('prop_cs_fuel_nozle'), 1.0, 1.0, 1.0, true, true, false)
@@ -531,7 +531,7 @@ RegisterNetEvent('cdn-fuel:client:returnnozzle', function()
 		else
 			holdingnozzle = false
 			TargetCreated = false
-			TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbacknozzle", 0.4)
+			--TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbacknozzle", 0.4)
 			Wait(250)
 			if Config.FuelTargetExport then exports[Config.TargetResource]:AllowRefuel(false) end
 			DeleteObject(fuelnozzle)
@@ -539,7 +539,7 @@ RegisterNetEvent('cdn-fuel:client:returnnozzle', function()
 	else
 		holdingnozzle = false
 		TargetCreated = false
-		TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbacknozzle", 0.4)
+		--TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbacknozzle", 0.4)
 		Wait(250)
 		if Config.FuelTargetExport then exports[Config.TargetResource]:AllowRefuel(false) end
 		DeleteObject(fuelnozzle)
@@ -954,7 +954,7 @@ RegisterNetEvent('cdn-fuel:client:RefuelVehicle', function(data)
 					end
 				end
 			end)
-			TriggerServerEvent("InteractSound_SV:PlayOnSource", "refuel", 0.3)
+			--TriggerServerEvent("InteractSound_SV:PlayOnSource", "refuel", 0.3)
 			if lib.progressCircle({
 				duration = time,
 				label = Lang:t("prog_refueling_vehicle"),
@@ -999,7 +999,7 @@ RegisterNetEvent('cdn-fuel:client:RefuelVehicle', function(data)
 					if Config.FuelDebug then print("Config.PlayerOwnedGasStationsEnabled == false or Config.UnlimitedFuel == true, this means reserves will not be changed.") end
 				end
 				StopAnimTask(ped, Config.RefuelAnimationDictionary, Config.RefuelAnimation, 3.0, 3.0, -1, 2, 0, 0, 0, 0)
-				TriggerServerEvent("InteractSound_SV:PlayOnSource", "fuelstop", 0.4)
+				--TriggerServerEvent("InteractSound_SV:PlayOnSource", "fuelstop", 0.4)
 				if Config.RenewedPhonePayment then
 					RefuelPossible = false
 					RefuelPossibleAmount = 0
@@ -1009,7 +1009,7 @@ RegisterNetEvent('cdn-fuel:client:RefuelVehicle', function(data)
 				refueling = false
 				Cancelledrefuel = true
 				StopAnimTask(ped, Config.RefuelAnimationDictionary, Config.RefuelAnimation, 3.0, 3.0, -1, 2, 0, 0, 0, 0)
-				TriggerServerEvent("InteractSound_SV:PlayOnSource", "fuelstop", 0.4)
+				--TriggerServerEvent("InteractSound_SV:PlayOnSource", "fuelstop", 0.4)
 			end
 		end
 	else
@@ -1534,7 +1534,7 @@ RegisterNetEvent('cdn-fuel:client:grabnozzle:special', function()
 	if HoldingSpecialNozzle then return end
 	LoadAnimDict("anim@am_hold_up@male")
 	TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
-	TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
+	--TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
 	Wait(300)
 	StopAnimTask(ped, "anim@am_hold_up@male", "shoplift_high", 1.0)
 	SpecialFuelNozzleObj = CreateObject(joaat('prop_cs_fuel_nozle'), 1.0, 1.0, 1.0, true, true, false)
@@ -1602,7 +1602,7 @@ end)
 
 RegisterNetEvent('cdn-fuel:client:returnnozzle:special', function()
 	HoldingSpecialNozzle = false
-	TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbacknozzle", 0.4)
+	--TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbacknozzle", 0.4)
 	Wait(250)
 	DeleteObject(SpecialFuelNozzleObj)
 

@@ -26,7 +26,7 @@ if Config.ElectricVehicleCharging then
 
     function SetElectricNozzle(state)
         if state == "putback" then
-            TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbackcharger", 0.4)
+            --TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbackcharger", 0.4)
             Wait(250)
             if Config.FuelTargetExport then exports[Config.TargetResource]:AllowRefuel(false, true) end
             DeleteObject(ElectricNozzle)
@@ -392,7 +392,7 @@ if Config.ElectricVehicleCharging then
                         end
                     end
                 end)
-                TriggerServerEvent("InteractSound_SV:PlayOnSource", "charging", 0.3)
+                --TriggerServerEvent("InteractSound_SV:PlayOnSource", "charging", 0.3)
                 if lib.progressCircle({
                     duration = time,
                     label = Lang:t("prog_electric_charging"),
@@ -423,12 +423,12 @@ if Config.ElectricVehicleCharging then
                         RefuelPossible = false
                     end
                     StopAnimTask(ped, Config.RefuelAnimationDictionary, Config.RefuelAnimation, 3.0, 3.0, -1, 2, 0, 0, 0, 0)
-                    TriggerServerEvent("InteractSound_SV:PlayOnSource", "chargestop", 0.4)
+                    --TriggerServerEvent("InteractSound_SV:PlayOnSource", "chargestop", 0.4)
                 else
                     refueling = false
                     Cancelledrefuel = true
                     StopAnimTask(ped, Config.RefuelAnimationDictionary, Config.RefuelAnimation, 3.0, 3.0, -1, 2, 0, 0, 0, 0)
-                    TriggerServerEvent("InteractSound_SV:PlayOnSource", "chargestop", 0.4)
+                    --TriggerServerEvent("InteractSound_SV:PlayOnSource", "chargestop", 0.4)
                 end
             end
         else return end
@@ -439,7 +439,7 @@ if Config.ElectricVehicleCharging then
         if HoldingElectricNozzle then return end
         LoadAnimDict("anim@am_hold_up@male")
         TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
-        TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
+        --TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
         Wait(300)
         StopAnimTask(ped, "anim@am_hold_up@male", "shoplift_high", 1.0)
         ElectricNozzle = CreateObject(joaat('electric_nozzle'), 1.0, 1.0, 1.0, true, true, false)
