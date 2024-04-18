@@ -42,9 +42,10 @@ Config.EmergencyServicesDiscount = {
     ['emergency_vehicles_only'] = true, -- Only allows discounts to be applied to Emergency Vehicles
     ['ondutyonly'] = true, -- Discount only applies while on duty.
     ['job'] = {
+        "government",
         "police",
-        "sasp",
-        "trooper",
+        "civilprotection",
+        "justice",
         "ambulance",
     }
 }
@@ -171,6 +172,9 @@ Config.ElectricVehicles = { -- List of Electric Vehicles in the Base Game.
     ["khamelion"] = {
         isElectric = true,
     },
+    ["taxi5"] = {
+        isElectric = true,
+    },	
 }
 Config.ElectricSprite = 620 -- This is for when the player is in an electric charger, the blips with change to this sprite. (Sprite with a car with a bolt going through it: 620)
 Config.ElectricChargerModel = true -- If you wish, you can set this to false to add your own props, or use a ymap for the props instead.
@@ -504,33 +508,8 @@ Config.AirAndWaterVehicleFueling = {
                 ['coords'] = vector4(2101.82, 4776.8, 40.02, 21.41),
             }
         },
-        -- Grapeseed Airfield
-        [12] = {
-            ['zone'] = {
-                points = {
-                    vector3(1347.76, 4277.37, 33.75),
-                    vector3(1330.47, 4279.02, 33.75),
-                    vector3(1328.53, 4261.64, 33.75),
-                    vector3(1346.13, 4260.88, 33.75),
-                },
-                thickness = 11.5,
-            },
-            ['draw_text'] = "[G] Refuel Watercraft",
-            ['type'] = 'water',
-            ['whitelist'] = {
-                ['enabled'] = false,
-                ['on_duty_only'] = false,
-                ['whitelisted_jobs'] = {
-                    'police', 'ambulance'
-                },
-            },
-            ['prop'] = {
-                ['model'] = 'prop_gas_pump_1d',
-                ['coords'] = vector4(1338.13, 4269.62, 30.5, 85.00),
-            }
-        },
         -- Bob Smith PD
-        [13] = {
+        [12] = {
             ['zone'] = {
                 points = {
                     vector3(-1083.85, -837.07, 39.25),
@@ -559,7 +538,7 @@ Config.AirAndWaterVehicleFueling = {
             }
         },
         -- Merryweather Helipad
-        [14] = {
+        [13] = {
             ['zone'] = {
                 points = {
                     vector3(488.84, -3383.66, 7.50),
@@ -588,7 +567,7 @@ Config.AirAndWaterVehicleFueling = {
             }
         },
         -- Airport Helipad #1 & #2
-        [15] = {
+        [14] = {
             ['zone'] = {
                 points = {
                     vector3(-1133.49, -2860.32, 15.50),
@@ -613,7 +592,7 @@ Config.AirAndWaterVehicleFueling = {
             }
         },
         -- Airport Helipad #3
-        [16] = {
+        [15] = {
             ['zone'] = {
                 points = {
                     vector3(-1124.63, -2865.31, 15.50),
@@ -638,7 +617,7 @@ Config.AirAndWaterVehicleFueling = {
             }
         },
         -- Sandy Shores Helipad
-        [17] = {
+        [16] = {
             ['zone'] = {
                 points = {
                     vector3(1764.15, 3226.34, 43.75),
@@ -663,7 +642,7 @@ Config.AirAndWaterVehicleFueling = {
             }
         },
         -- Sandy Shores Hangar
-        [18] = {
+        [17] = {
             ['zone'] = {
                 points = {
                     vector3(1755.37, 3301.3, 43.75),
@@ -688,6 +667,31 @@ Config.AirAndWaterVehicleFueling = {
                 ['coords'] = vector4(1748.31, 3297.08, 40.16, 15.0),
             }
         },
+        -- Grapeseed Airfield
+        --[[[18] = {
+            ['zone'] = {
+                points = {
+                    vector3(1347.76, 4277.37, 33.75),
+                    vector3(1330.47, 4279.02, 33.75),
+                    vector3(1328.53, 4261.64, 33.75),
+                    vector3(1346.13, 4260.88, 33.75),
+                },
+                thickness = 11.5,
+            },
+            ['draw_text'] = "[G] Refuel Watercraft",
+            ['type'] = 'water',
+            ['whitelist'] = {
+                ['enabled'] = false,
+                ['on_duty_only'] = false,
+                ['whitelisted_jobs'] = {
+                    'police', 'ambulance'
+                },
+            },
+            ['prop'] = {
+                ['model'] = 'prop_gas_pump_1d',
+                ['coords'] = vector4(1338.13, 4269.62, 30.5, 85.00),
+            }
+        },--]]		
     },
     ['refuel_button'] = 47, -- "G" Button for Draw Text.
     ['nozzle_length'] = 20.0, -- The max distance you can go from the "Special Pump" before the nozzle in returned to the pump.
