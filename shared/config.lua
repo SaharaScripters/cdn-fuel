@@ -38,9 +38,9 @@ Config.DeliveryTruckSpawns = { -- https://i.imgur.com/VS22i8R.jpeg
 -- 2.1.0 Update
 Config.EmergencyServicesDiscount = {
     ['enabled'] = true, -- Enables Emergency Services Getting a discount based on the value below for Refueling & Electricity Charging Cost
-    ['discount'] = 25, -- % Discount off of price.
+    ['discount'] = 100, -- % Discount off of price.
     ['emergency_vehicles_only'] = true, -- Only allows discounts to be applied to Emergency Vehicles
-    ['ondutyonly'] = true, -- Discount only applies while on duty.
+    ['ondutyonly'] = false, -- Discount only applies while on duty.
     ['job'] = {
         "government",
         "police",
@@ -171,9 +171,6 @@ Config.ElectricVehicles = { -- List of Electric Vehicles in the Base Game.
     },
     ["khamelion"] = {
         isElectric = true,
-    },
-    ["taxi5"] = {
-        isElectric = true,
     },	
 }
 Config.ElectricSprite = 620 -- This is for when the player is in an electric charger, the blips with change to this sprite. (Sprite with a car with a bolt going through it: 620)
@@ -185,6 +182,9 @@ Config.NoFuelUsage = { -- This is for you to put vehicles that you don't want to
     ["bmx"] = {
         blacklisted = true
     },
+    ["cruiser"] = {
+        blacklisted = true
+    },	
 }
 
 Config.Classes = { -- Class multipliers. If you want SUVs to use less fuel, you can change it to anything under 1.0, and vise versa.
@@ -1351,62 +1351,40 @@ Config.GasStations = { -- Configuration options for various gas station related 
         electricchargercoords = vector4(-341.63, -1459.39, 29.76, 271.73),
         label = "Alta Street Globe Oil",
     },
-    --[[
-    [28] = { -- Gabz Ottos Autos Location, Line In If Needed.
+    [28] = {
         zone = {
             points = {
-            vector3(794.27795410156, -802.88677978516),
-            vector3(794.19073486328, -784.70434570313),
-            vector3(834.78155517578, -784.63250732422),
-            vector3(843.86151123047, -801.45819091797),
-            vector3(823.64239501953, -801.69488525391),
-            vector3(811.66571044922, -803.15899658203)
+				vector3(751.0, -2008.0500488282, 29.7),
+				vector3(736.29998779296, -2006.75, 29.7),
+				vector3(736.54998779296, -2003.400024414, 29.7),
+				vector3(723.34997558594, -2002.25, 29.7),
+				vector3(721.5, -2017.900024414, 29.7),
+				vector3(714.20001220704, -2017.25, 29.7),
+				vector3(713.45001220704, -2025.650024414, 29.7),
+				vector3(717.54998779296, -2038.5, 29.7),
+				vector3(739.79998779296, -2040.4499511718, 29.7),
+				vector3(743.29998779296, -2040.0500488282, 29.7),
+				vector3(745.59997558594, -2038.75, 29.7),
+				vector3(747.09997558594, -2036.650024414, 29.7),
+				vector3(747.90002441406, -2034.150024414, 29.7),				
+            },
+            thickness = 2.75,
         },
-    }
-        minz = 26.0,
-        maxz = 27.0,
         pedmodel = "a_m_m_indian_01",
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 819.1,
-            y = -774.63,
-            z = 25.23,
-            h = 83.86,
+            x = 721.88,
+            y = -2016.35,
+            z = 28.43,
+            h = 265,
         },
         electriccharger = nil,
-        electricchargercoords = vector4(837.7554, -793.623, 25.23, 105.22),
-        label = "Ottos Autos Globe Oil",
+        electricchargercoords = vector4(715.21, -2022.59, 28.40, 270),
+        label = "Popular St Ron",
     },
-    ]]
-    --[[
-    [29] = { -- Car Meet Location, Line In If Needed.
-        zone = {
-            points = {
-            vector3(968.98, -1754.89),
-            vector3(962.97, -1754.32),
-            vector3(963.62, -1746.29),
-            vector3(969.61, -1746.84)
-        },
-    }
-        minz = 20.0,
-        maxz = 22.0,
-        pedmodel = "u_m_y_smugmech_01",
-        cost = 100000,
-        shutoff = false,
-        pedcoords = {
-            x = 976.31,
-            y = -1746.9,
-            z = 20.03,
-            h = 177.72,
-        },
-        electriccharger = nil,
-        electricchargercoords = vector4(971.98, -1746.81, 20.03, 177.17),
-        label = "H&O Exports",
-    },
-    ]]
     --[[ Example of a New Location
-    [29] = {
+    [31] = {
         zone = {
             points = {
              https://skyrossm.github.io/PolyZoneCreator/

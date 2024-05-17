@@ -13,7 +13,7 @@ local Translations = {
     show_input_key_special = "Press [G] when near the vehicle to fuel it up!",
     tank_cannot_fit = "Your tank cannot fit this!",
     tank_already_full = "Your vehicle is already full!",
-    need_electric_charger = "I need to go to an electric charger!",
+    need_electric_charger = "Electric vehicles can't be fueled with traditional pumps. Use a charging station instead",
     cannot_refuel_inside = "You cannot refuel from inside of the vehicle!",
     
     -- 2.1.2 -- Reserves Pickup ---
@@ -33,7 +33,7 @@ local Translations = {
 
     -- Electric
     electric_more_than_zero = "You have to charge more than 0KW!",
-    electric_vehicle_not_electric = "Your vehicle is not electric!",
+    electric_vehicle_not_electric = "This vehicle does not support electric charging. Please use a fuel pump instead",
     electric_no_nozzle = "Your vehicle is not electric!",
 
     -- Phone --
