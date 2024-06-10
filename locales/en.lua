@@ -74,14 +74,14 @@ local Translations = {
     station_sold_location_payment_label = "Sold a Gas Station Location: ",
     station_withdraw_payment_label = "Withdrew money from Gas Station. Location: ",
     station_deposit_payment_label = "Deposited money to Gas Station. Location: ",
+	
     -- All Progress Bars
-    prog_refueling_vehicle = "Refueling Vehicle..",
-    prog_electric_charging = "Charging..",
-    prog_jerry_can_refuel = "Refueling Jerry Can..",
+    prog_refueling_vehicle = "Refueling Vehicle",
+    prog_electric_charging = "Charging",
+    prog_jerry_can_refuel = "Refueling Jerrycan",
     prog_syphoning = "Syphoning Fuel..",
 
     -- Menus
-    
     menu_header_cash = "Cash",
     menu_header_bank = "Bank",
     menu_header_close = "Cancel",
@@ -92,59 +92,46 @@ local Translations = {
     menu_refuel_cancel = "I actually don't want fuel anymore.",
     menu_pay_label_1 = "Gasoline @ ",
     menu_pay_label_2 = " / L",
-    menu_header_jerry_can = "Jerry Can",
-    menu_header_refuel_jerry_can = "Refuel Jerry Can",
+    menu_header_jerry_can = "Jerrycan",
+    menu_header_refuel_jerry_can = "Refuel Jerrycan",
     menu_header_refuel_vehicle = "Refuel Vehicle",
-
     menu_electric_cancel = "I actually don't want to charge my car anymore.",
     menu_electric_header = "Electric Charger",
     menu_electric_accept = "I would like to pay for electricity.",
     menu_electric_payment_label_1 = "Electricity @ ",
     menu_electric_payment_label_2 = " / KW",
 
-
     -- Station Menus
-
     menu_ped_manage_location_header = "Manage This Location",
     menu_ped_manage_location_footer = "If you are the owner, you can manage this location.",
-
     menu_ped_purchase_location_header = "Purchase This Location",
     menu_ped_purchase_location_footer = "If no one owns this location, you can purchase it.",
-
     menu_ped_emergency_shutoff_header = "Toggle Emergency Shutoff",
     menu_ped_emergency_shutoff_footer = "Shut off the fuel in case of an emergency.   \n The pumps are currently ",
-    
     menu_ped_close_header = "Cancel Conversation",
     menu_ped_close_footer = "I actually don't want to discuss anything anymore.",
-
     menu_station_reserves_header = "Buy Reserves for ",
     menu_station_reserves_purchase_header = "Buy reserves for: $",
     menu_station_reserves_purchase_footer = "Yes I want to buy fuel reserves for $",
     menu_station_reserves_cancel_footer = "I actually don't want to buy more reserves!",
-    
     menu_purchase_station_header_1 = "The total cost is going to be: $",
     menu_purchase_station_header_2 = " including taxes.",
     menu_purchase_station_confirm_header = "Confirm",
     menu_purchase_station_confirm_footer = "I want to purchase this location for $",
     menu_purchase_station_cancel_footer = "I actually don't want to buy this location anymore. That price is bonkers!",
-
     menu_sell_station_header = "Sell ",
     menu_sell_station_header_accept = "Sell Gas Station",
     menu_sell_station_footer_accept = "Yes, I want to sell this location for $",
     menu_sell_station_footer_close = "I actually don't have anything more to discuss.",
-
     menu_manage_header = "Management of ",
     menu_manage_reserves_header = "Fuel Reserves  \n",
     menu_manage_reserves_footer_1 =  " Liters out of ",
     menu_manage_reserves_footer_2 =  " Liters  \nYou can purchase more reserves below!",
-    
     menu_manage_purchase_reserves_header = "Purchase More Fuel for Reserves",
     menu_manage_purchase_reserves_footer = "I want to purchase more fuel reserves for $",
     menu_manage_purchase_reserves_footer_2 = " / L!",
-
     menu_alter_fuel_price_header = "Alter Fuel Price",
     menu_alter_fuel_price_footer_1 = "I want to change the price of fuel at my Gas Station!  \nCurrently, it is $",
-    
     menu_manage_company_funds_header = "Manage Company Funds",
     menu_manage_company_funds_footer = "I want to manage this locations funds.",
     menu_manage_company_funds_header_2 = "Funds Management of ",
@@ -154,21 +141,18 @@ local Translations = {
     menu_manage_company_funds_deposit_footer = "Deposit funds to the Station's account.",
     menu_manage_company_funds_return_header = "Return",
     menu_manage_company_funds_return_footer = "I want to discuss something else!",
-
     menu_manage_change_name_header = "Change Location Name",
     menu_manage_change_name_footer = "I want to change the location name.",
-
     menu_manage_sell_station_footer = "Sell your gas station for $",
-
     menu_manage_close = "I actually don't have anything more to discuss!", 
 
     -- Jerry Can Menus 
-    menu_jerry_can_purchase_header = "Purchase Jerry Can for $",
-    menu_jerry_can_footer_full_gas = "Your Jerry Can is full!",
-    menu_jerry_can_footer_refuel_gas = "Refuel your Jerry Can!",
+    menu_jerry_can_purchase_header = "Purchase Jerrycan for $",
+    menu_jerry_can_footer_full_gas = "Your Jerrycan is full!",
+    menu_jerry_can_footer_refuel_gas = "Fill your Jerrycan!",
     menu_jerry_can_footer_use_gas = "Put your gasoline to use and refuel the vehicle!",
-    menu_jerry_can_footer_no_gas = "You have no gas in your Jerry Can!",
-    menu_jerry_can_footer_close = "I actually don't want a Jerry Can anymore.",
+    menu_jerry_can_footer_no_gas = "You have no gas in your Jerrycan!",
+    menu_jerry_can_footer_close = "I actually don't want a Jerrycan anymore.",
     menu_jerry_can_close = "I actually don't want to use this anymore.",
 
     -- Syphon Kit Menus
@@ -181,34 +165,28 @@ local Translations = {
     menu_syphon_header = "Syphon",
     menu_syphon_refuel_header = "Refuel",
 
-
     -- Input --
     input_select_refuel_header = "Select how much gas to refuel.",
     input_refuel_submit = "Refuel Vehicle",
-    input_refuel_jerrycan_submit = "Refuel Jerry Can",
+    input_refuel_jerrycan_submit = "Fill Jerrycan",
     input_max_fuel_footer_1 = "Up to ",
     input_max_fuel_footer_2 = "L of gas.",
     input_insert_nozzle = "Insert Nozzle", -- Used for Target as well!
-
     input_purchase_reserves_header_1 = "Purchase Reserves  \nCurrent Price: $",
     input_purchase_reserves_header_2 = Config.FuelReservesPrice .. " / Liter  \nCurrent Reserves: ",
     input_purchase_reserves_header_3 = " Liters  \nFull Reserve Cost: $",
     input_purchase_reserves_submit_text = "Buy Reserves",
     input_purchase_reserves_text = 'Purchase Fuel Reserves.',
-
     input_alter_fuel_price_header_1 = "Alter Fuel Price   \nCurrent Price: $",
     input_alter_fuel_price_header_2 = " / Liter",
     input_alter_fuel_price_submit_text = "Change Fuel Price",
-
     input_change_name_header_1 = "Change ",
     input_change_name_header_2 = "'s Name.",
     input_change_name_submit_text = "Submit Name Change",
     input_change_name_text = "New Name..",
-
     input_withdraw_funds_header = "Withdraw Funds  \nCurrent Balance: $",
     input_withdraw_submit_text = "Withdraw",
     input_withdraw_text = "Withdraw Funds",
-
     input_deposit_funds_header = "Deposit Funds  \nCurrent Balance: $",
     input_deposit_submit_text = "Deposit",
     input_deposit_text = "Deposit Funds",
@@ -220,17 +198,17 @@ local Translations = {
     return_nozzle = "Return Nozzle",
     grab_special_nozzle = "Grab Special Nozzle",
     return_special_nozzle = "Return Special Nozzle",
-    buy_jerrycan = "Purchase Jerry Can",
+    buy_jerrycan = "Purchase Jerrycan",
     station_talk_to_ped = "Discuss Gas Station",
 
     -- Jerry Can
-    jerry_can_full = "Your Jerry can is full!",
-    jerry_can_refuel = "Refuel your Jerry Can!",
-    jerry_can_not_enough_fuel = "The Jerry Can doesn't have this much fuel!",
-    jerry_can_not_fit_fuel = "The Jerry Can cannot fit this much fuel!",
-    jerry_can_success = "Successfully filled the Jerry Can!",
-    jerry_can_success_vehicle = "Successfully fueled the vehicle with the Jerry Can!",
-    jerry_can_payment_label = "Purchased Jerry Can.",
+    jerry_can_full = "Your Jerrycan is full!",
+    jerry_can_refuel = "Refuel your Jerrycan!",
+    jerry_can_not_enough_fuel = "The Jerrycan doesn't have this much fuel!",
+    jerry_can_not_fit_fuel = "The Jerrycan cannot fit this much fuel!",
+    jerry_can_success = "Successfully filled the Jerrycan!",
+    jerry_can_success_vehicle = "Successfully fueled the vehicle with the Jerrycan!",
+    jerry_can_payment_label = "Purchased Jerrycan.",
 
     -- Syphoning
     syphon_success = "Successfully syphoned from vehicle!",
@@ -244,4 +222,5 @@ local Translations = {
     syphon_not_enough_gas = "You don't have enough gas to refuel that much!",
     syphon_dispatch_string = "(10-90) - Gasoline Theft",
 }
+
 Lang = Locale:new({phrases = Translations, warnOnMissing = true})

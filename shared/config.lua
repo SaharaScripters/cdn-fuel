@@ -15,10 +15,10 @@ Config.FuelTargetExport = false -- DO NOT USE WITH OX_TARGET! This is only used 
 -- 2.1.1 Update --
 Config.OwnersPickupFuel = false -- If an owner buys fuel, they will have to go pick it up at a configured location.
 Config.PossibleDeliveryTrucks = {
-    "hauler",
-    "phantom",
-    -- "phantom3", --  This is an fast version of the normal phantom.
-    "packer",
+    `hauler`,
+    `phantom`,
+    `packer`,
+    -- `phantom3`, --  This is an fast version of the normal phantom.	
 }
 Config.DeliveryTruckSpawns = { -- https://i.imgur.com/VS22i8R.jpeg
     trailer = vector4(1724.0, -1649.7, 112.57, 194.24),
@@ -84,7 +84,7 @@ Config.UseSyphoning = false -- Follow the Syphoning Install Guide to enable this
 Config.SyphonDebug = false -- Used for Debugging the syphon portion!
 Config.SyphonKitCap = 50 -- Maximum amount (in L) the syphon kit can fit!
 Config.SyphonPoliceCallChance = 25 -- Math.Random(1, 100) Default: 25%
-Config.SyphonDispatchSystem = "ps-dispatch" -- Options: "ps-dispatch", "qb-dispatch", "qb-default" (just blips) or "custom" (Custom: you must configure yourself!)
+Config.SyphonDispatchSystem = "ss_dispatch" -- Options: "ps-dispatch", "qb-dispatch", "qb-default" (just blips) or "custom" (Custom: you must configure yourself!)
 
 --- Jerry Can -----
 Config.UseJerryCan = true -- Enable the Jerry Can functionality. Will only work if properly installed.

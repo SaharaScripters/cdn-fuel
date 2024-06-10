@@ -71,7 +71,7 @@ function CreateBlip(coords, label)
 		SetBlipColour(blip, 5)
 	else
 		SetBlipSprite(blip, 361)
-		SetBlipColour(blip, 4)
+		SetBlipColour(blip, 5)
 	end
 	SetBlipScale(blip, 0.6)
 	SetBlipDisplay(blip, 4)

@@ -84,8 +84,8 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
     end
 
     local function SpawnPickupVehicles()
-        local trailer = GetHashKey('tanker')
-        local truckToSpawn = GetHashKey(GenerateRandomTruckModel())
+        local trailer = `tanker`
+        local truckToSpawn = GenerateRandomTruckModel()
         if truckToSpawn then
             RequestAndLoadModel(truckToSpawn)
             RequestAndLoadModel(trailer)
