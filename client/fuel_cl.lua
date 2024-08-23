@@ -29,11 +29,9 @@ if Config.FuelDebug then
 		SetFuel(vehicle, tonumber(args[1]))
 		exports.qbx_core:Notify(Lang:t("set_fuel_debug")..' '..args[1]..'L', 'success')
 	end, false)
-
 	RegisterCommand('getCachedFuelPrice', function()
 		print(CachedFuelPrice)
 	end, false)
-
 	RegisterCommand('getVehNameForBlacklist', function()
 		local veh = GetVehiclePedIsIn(PlayerPedId(), false)
 		if veh ~= 0 then
@@ -136,7 +134,6 @@ function IsInGasStation()
 	return inGasStation
 end
 
-
 -- Thread Stuff --
 
 if Config.LeaveEngineRunning then
@@ -165,7 +162,6 @@ if Config.ShowNearestGasStationOnly then
 		if Config.FuelDebug then print("Changing Label for Location #"..location..' to '..newLabel) end
 		Config.GasStations[location].label = newLabel
 	end)
-
 	CreateThread(function()
 		if Config.PlayerOwnedGasStationsEnabled then
 			TriggerServerEvent('cdn-fuel:server:updatelocationlabels')
@@ -213,7 +209,6 @@ else
 		RemoveBlip(GasStationBlips[location])
 		GasStationBlips[location] = CreateBlip(coords, Config.GasStations[location].label)
 	end)
-
 	CreateThread(function()
 		TriggerServerEvent('cdn-fuel:server:updatelocationlabels')
 		Wait(1000)
@@ -356,12 +351,12 @@ if Config.RenewedPhonePayment then
 	end)
 end
 
-
 if LocalPlayer.state['isLoggedIn'] then
 	exports.ox_inventory:displayMetadata({
 		cdn_fuel = "Fuel",
 	})
 end
+
 AddEventHandler("QBCore:Client:OnPlayerLoaded", function()
 	if GetResourceState('ox_inventory'):match("start") then
 		exports.ox_inventory:displayMetadata({
@@ -1058,7 +1053,6 @@ RegisterNetEvent('cdn-fuel:jerrycan:refuelmenu', function(itemData)
 		else nogas = false
 			GasString = Lang:t("menu_jerry_can_footer_use_gas")
 		end
-
 		lib.registerContext({
 			id = 'cdnrefuelmenu2',
 			title = Lang:t("menu_header_jerry_can"),
@@ -1381,10 +1375,8 @@ RegisterNetEvent('cdn-syphoning:syphon', function(data)
 	Wait(50)
 	if NotElectric then
 		local currentsyphonamount = nil
-
 		currentsyphonamount = tonumber(data.itemData.metadata.cdn_fuel)
 		HasSyphon = exports.ox_inventory:Search('count', 'syphoningkit')
-
 		if HasSyphon then
 			local fitamount = (Config.SyphonKitCap - currentsyphonamount)
 			local vehicle = GetClosestVehicle()
@@ -1459,7 +1451,6 @@ RegisterNetEvent('cdn-syphoning:syphon', function(data)
 					Maxrefuel = currentsyphonamount
 				end
 				refuel = lib.inputDialog(Lang:t("input_select_refuel_header"), {{ type = "number", label = Lang:t("input_max_fuel_footer_1") .. Maxrefuel .. Lang:t("input_max_fuel_footer_2"), default = Maxrefuel }})
-
 				if not refuel then return end
 				refuelAmount = tonumber(refuel[1])
 				if refuel then
@@ -1626,27 +1617,20 @@ AddEventHandler('onResourceStart', function(resource)
 			local currentLocation = Config.AirAndWaterVehicleFueling['locations'][i]
 			local k = #AirSeaFuelZones+1
 			local GeneratedName = "air_sea_fuel_zone_"..k
-
 			AirSeaFuelZones[k] = {} -- Make a new table inside of the Vehicle Pullout Zones representing this zone.
-
 			AirSeaFuelZones[k].name = GeneratedName
-
-
 			AirSeaFuelZones[k].zone = lib.zones.poly({
 				points = currentLocation.zone.points,
 				thickness = currentLocation.zone.thickness,
 				debug = Config.PolyDebug,
 				onEnter = function()
-
 					local canUseThisStation = false
 					if Config.AirAndWaterVehicleFueling['locations'][i]['whitelist']['enabled'] then
 						local whitelisted_jobs = Config.AirAndWaterVehicleFueling['locations'][i]['whitelist']['whitelisted_jobs']
 						local plyJob = QBX.PlayerData.job
-
 						if Config.FuelDebug then
 							print("Player Job: "..plyJob.name.." Is on Duty?: "..json.encode(plyJob.onduty))
 						end
-
 						if type(whitelisted_jobs) == "table" then
 							for i = 1, #whitelisted_jobs, 1 do
 								if plyJob.name == whitelisted_jobs[i] then
@@ -1665,26 +1649,21 @@ AddEventHandler('onResourceStart', function(resource)
 					else
 						canUseThisStation = true
 					end
-
 					if canUseThisStation then
 						-- Inside
 						PlayerInSpecialFuelZone = true
 						inGasStation = true
 						RefuelingType = 'special'
-
 						local DrawText = Config.AirAndWaterVehicleFueling['locations'][i]['draw_text']
-
 						lib.showTextUI(DrawText, {
 							position = 'left-center'
 						})
-
 						CreateThread(function()
 							while PlayerInSpecialFuelZone do
 								Wait(3000)
 								vehicle = GetClosestVehicle()
 							end
 						end)
-
 						CreateThread(function()
 							while PlayerInSpecialFuelZone do
 								Wait(0)
@@ -1708,7 +1687,6 @@ AddEventHandler('onResourceStart', function(resource)
 								end
 							end
 						end)
-
 						if Config.FuelDebug then
 							print('Player has entered the Heli or Plane Refuel Zone: ('..GeneratedName..')')
 						end
@@ -1746,7 +1724,6 @@ AddEventHandler('onResourceStart', function(resource)
 					end
 				end,
 			})
-
 			if currentLocation['prop'] then
 				local model = currentLocation['prop']['model']
 				local modelCoords = currentLocation['prop']['coords']
@@ -1758,7 +1735,6 @@ AddEventHandler('onResourceStart', function(resource)
 			else
 				if Config.FuelDebug then print("Location #"..i.." for Special Fueling Zones (Air and Sea) doesn't have a prop set up, so players cannot fuel here.") end
 			end
-
 			if Config.FuelDebug then
 				print("Created Location: "..GeneratedName)
 			end
@@ -1772,23 +1748,19 @@ AddEventHandler("QBCore:Client:OnPlayerLoaded", function ()
 		local currentLocation = Config.AirAndWaterVehicleFueling['locations'][i]
 		local k = #AirSeaFuelZones+1
 		local GeneratedName = "air_sea_fuel_zone_"..k
-
 		AirSeaFuelZones[k] = {} -- Make a new table inside of the Vehicle Pullout Zones representing this zone.
-
 		AirSeaFuelZones[k].zone = lib.zones.poly({
-      points = currentLocation.zone.points,
-      thickness = currentLocation.zone.thickness,
-      debug = Config.PolyDebug,
-      onEnter = function()
+      		points = currentLocation.zone.points,
+      		thickness = currentLocation.zone.thickness,
+      		debug = Config.PolyDebug,
+      		onEnter = function()
 				local canUseThisStation = false
 				if Config.AirAndWaterVehicleFueling['locations'][i]['whitelist']['enabled'] then
 					local whitelisted_jobs = Config.AirAndWaterVehicleFueling['locations'][i]['whitelist']['whitelisted_jobs']
 					local plyJob = QBX.PlayerData.job
-
 					if Config.FuelDebug then
 						print("Player Job: "..plyJob.name.." Is on Duty?: "..json.encode(plyJob.onduty))
 					end
-
 					if type(whitelisted_jobs) == "table" then
 						for i = 1, #whitelisted_jobs, 1 do
 							if plyJob.name == whitelisted_jobs[i] then
@@ -1807,7 +1779,6 @@ AddEventHandler("QBCore:Client:OnPlayerLoaded", function ()
 				else
 					canUseThisStation = true
 				end
-
 				if canUseThisStation then
 					-- Inside
 					PlayerInSpecialFuelZone = true
@@ -1819,14 +1790,12 @@ AddEventHandler("QBCore:Client:OnPlayerLoaded", function ()
 					lib.showTextUI(DrawText, {
 						position = 'left-center'
 					})
-
 					CreateThread(function()
 						while PlayerInSpecialFuelZone do
 							Wait(3000)
 							vehicle = GetClosestVehicle()
 						end
 					end)
-
 					CreateThread(function()
 						while PlayerInSpecialFuelZone do
 							Wait(0)
@@ -1850,13 +1819,12 @@ AddEventHandler("QBCore:Client:OnPlayerLoaded", function ()
 							end
 						end
 					end)
-
 					if Config.FuelDebug then
 						print('Player has entered the Heli or Plane Refuel Zone: ('..GeneratedName..')')
 					end
 				end
-      end,
-      onExit = function()
+      		end,
+      		onExit = function()
 				if HoldingSpecialNozzle then
 					exports.qbx_core:Notify(Lang:t("nozzle_cannot_reach"), 'error')
 					HoldingSpecialNozzle = false
@@ -1886,10 +1854,9 @@ AddEventHandler("QBCore:Client:OnPlayerLoaded", function ()
 				if Config.FuelDebug then
 					print('Player has exited the Heli or Plane Refuel Zone: ('..GeneratedName..')')
 				end
-      end,
-    })
+      		end,
+    	})
 		AirSeaFuelZones[k].name = GeneratedName
-
 		if currentLocation['prop'] then
 			local model = currentLocation['prop']['model']
 			local modelCoords = currentLocation['prop']['coords']
@@ -1901,7 +1868,6 @@ AddEventHandler("QBCore:Client:OnPlayerLoaded", function ()
 		else
 			if Config.FuelDebug then print("Location #"..i.." for Special Fueling Zones (Air and Sea) doesn't have a prop set up, so players cannot fuel here.") end
 		end
-
 		if Config.FuelDebug then
 			print("Created Location: "..GeneratedName)
 		end
@@ -1942,7 +1908,6 @@ CreateThread(function()
 		"seat_dside_r",
 		"engine",
 	}
-
 	if Config.TargetResource == 'ox_target' then
 		local options = {
 			[1] = {
@@ -1974,9 +1939,7 @@ CreateThread(function()
 				event = "cdn-fuel:client:electric:RefuelMenu",
 			}
 		}
-
 		exports.ox_target:addGlobalVehicle(options)
-
 		local modelOptions = {
 			[1] = {
 				name = "cdn-fuel:modelOptions:option_1",
@@ -2046,7 +2009,6 @@ CreateThread(function()
 				end
 			},
 		}
-
 		exports.ox_target:addModel(props, modelOptions)
 	else
 		exports[Config.TargetResource]:AddTargetBone(bones, {
@@ -2086,7 +2048,6 @@ CreateThread(function()
 			},
 			distance = 1.5,
 		})
-
 		exports[Config.TargetResource]:AddTargetModel(props, {
 			options = {
 				{

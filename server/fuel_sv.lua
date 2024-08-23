@@ -97,7 +97,6 @@ RegisterNetEvent('cdn-fuel:info', function(type, amount, srcPlayerData, itemdata
     local Player = exports.qbx_core:GetPlayer(src)
     local srcPlayerData = srcPlayerData
 	local ItemName = itemdata.name
-
 	if itemdata == "jerrycan" then
 		if amount < 1 or amount > Config.JerryCanCap then if Config.FuelDebug then print("Error, amount is invalid (< 1 or > "..Config.SyphonKitCap..")! Amount:" ..amount) end return end
 	elseif itemdata == "syphoningkit" then

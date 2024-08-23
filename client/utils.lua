@@ -103,7 +103,6 @@ function GetClosestVehicle(coords)
     return closestVehicle, closestDistance
 end
 
-
 function IsPlayerNearVehicle()
 	if Config.FuelDebug then
 		print("Checking if player is near a vehicle!")

@@ -48,7 +48,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         end
     end
     exports(UpdateStationInfo, UpdateStationInfo)
-
     local function SpawnGasStationPeds()
         if not Config.GasStations or not next(Config.GasStations) or PedsSpawned then return end
         for i = 1, #Config.GasStations do
@@ -75,14 +74,12 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         end
         PedsSpawned = true
     end
-
     local function GenerateRandomTruckModel()
         local possibleTrucks = Config.PossibleDeliveryTrucks
         if possibleTrucks then
             return possibleTrucks[math.random(#possibleTrucks)]
         end
     end
-
     local function SpawnPickupVehicles()
         local trailer = `tanker`
         local truckToSpawn = GenerateRandomTruckModel()
@@ -105,7 +102,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end
-
     -- Events
     RegisterNetEvent('cdn-fuel:stations:updatelocation', function(updatedlocation)
         if Config.FuelDebug then if CurrentLocation == nil then CurrentLocation = 0 end
@@ -114,7 +110,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         end
         CurrentLocation = updatedlocation or 0
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:buyreserves', function(data)
         local location = data.location
         local price = data.price
@@ -122,7 +117,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         TriggerServerEvent('cdn-fuel:stations:server:buyreserves', location, price, amount)
         if Config.FuelDebug then print("^5Attempting Purchase of ^2"..amount.. "^5 Fuel Reserves for location #"..location.."! Purchase Price: ^2"..price) end
     end)
-
     RegisterNetEvent('cdn-fuel:station:client:initiatefuelpickup', function(amountBought, finalReserveAmountAfterPurchase, location)
         if amountBought and finalReserveAmountAfterPurchase and location then
             ReservePickupData = nil
@@ -131,14 +125,12 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
                 amountBought = amountBought,
                 location = location,
             }
-
             if SpawnPickupVehicles() then
                 exports.qbx_core:Notify(Lang:t("fuel_order_ready"), 'success')
                 SetNewWaypoint(Config.DeliveryTruckSpawns['truck'].x, Config.DeliveryTruckSpawns['truck'].y)
                 SetUseWaypointAsDestination(true)
                 ReservePickupData.blip = CreateBlip(vector3(Config.DeliveryTruckSpawns['truck'].x, Config.DeliveryTruckSpawns['truck'].y, Config.DeliveryTruckSpawns['truck'].z), "Truck Pickup")
                 SetBlipColour(ReservePickupData.blip, 5)
-
                 ReservePickupData.zone = lib.zones.poly({
                     points = Config.DeliveryTruckSpawns.zone.points,
                     thickness = Config.DeliveryTruckSpawns.zone.thickness,
@@ -165,7 +157,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
                                         if Config.FuelDebug then
                                             print("Player is inside of the delivery truck!")
                                         end
-
                                         if not alreadyHasTruck then
                                             local loc = {}
                                             loc.x, loc.y = Config.GasStations[ReservePickupData.location].pedcoords.x, Config.GasStations[ReservePickupData.location].pedcoords.y
@@ -212,9 +203,7 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
                                                                         )
                                                                         Wait(5000)
                                                                     end
-
                                                                     lib.hideTextUI()
-
                                                                     -- Remove Vehicle --
                                                                     DeleteEntity(spawnedDeliveryTruck)
                                                                     DeleteEntity(spawnedTankerTrailer)
@@ -269,7 +258,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:purchaselocation', function(data)
         local location = data.location
         local CitizenID = QBX.PlayerData.citizenid
@@ -289,7 +277,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             exports.qbx_core:Notify(Lang:t("station_already_owned"), 'error', 7500)
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:sellstation', function(data)
         local location = data.location
         local SalePrice = data.SalePrice
@@ -313,7 +300,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             exports.qbx_core:Notify(Lang:t("station_cannot_sell"), 'error', 7500)
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:purchasereserves:final', function(location, price, amount) -- Menu, seens after selecting the "purchase reserves" option.
         local location = location
         local price = price
@@ -365,7 +351,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             if Config.FuelDebug then print("Not showing menu, as the player doesn't have proper permissions.") end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:purchasereserves', function(data)
         local CanOpen = false
         local location = data.location
@@ -422,7 +407,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:changefuelprice', function(data)
         CanOpen = false
         local location = data.location
@@ -464,7 +448,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:sellstation:menu', function(data) -- Menu, seen after selecting the Sell this Location option.
         local location = data.location
         local CitizenID = QBX.PlayerData.citizenid
@@ -510,7 +493,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             TriggerServerEvent("cdn-fuel:stations:server:stationsold", location)
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:changestationname', function() -- Menu for changing the label of the owned station.
         CanOpen = false
         local result = lib.callback.await('cdn-fuel:server:isowner', false, CurrentLocation)
@@ -551,7 +533,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:managemenu', function(location) -- Menu, seen after selecting the Manage this Location Option.
         location = CurrentLocation
         local result = lib.callback.await('cdn-fuel:server:isowner', false, CurrentLocation)
@@ -633,14 +614,13 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
                         arrow = false, -- puts arrow to the right
                         onSelect = function()
                             lib.hideContext()
-                            end,
+                        end,
                     },
                 },
             })
             lib.showContext('stationmanagemenu')
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:managefunds', function(location) -- Menu, seen after selecting the Manage this Location Option.
         local result = lib.callback.await('cdn-fuel:server:isowner', false, CurrentLocation)
         local CitizenID = QBX.PlayerData.citizenid
@@ -703,7 +683,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             lib.showContext('managefundsmenu')
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:WithdrawFunds', function(data)
         if Config.FuelDebug then print("Triggered Event for: Withdraw!") end
         CanOpen = false
@@ -747,7 +726,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:DepositFunds', function(data)
         if Config.FuelDebug then print("Triggered Event for: Deposit!") end
         CanOpen = false
@@ -791,15 +769,12 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:Shutoff', function(location)
         TriggerServerEvent("cdn-fuel:stations:server:Shutoff", location)
     end)
-
     RegisterNetEvent('cdn-fuel:stations:client:purchasemenu', function(location) -- Menu, seen after selecting the purchase this location option.
         local bankmoney = QBX.PlayerData.money['bank']
         local costofstation = Config.GasStations[location].cost + GlobalTax(Config.GasStations[location].cost)
-
         if Config.OneStationPerPerson == true then
             local result = lib.callback.await('cdn-fuel:server:doesPlayerOwnStation', false)
             if result then
@@ -815,11 +790,9 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
                 return
             end
         end
-
         if bankmoney < costofstation then
             exports.qbx_core:Notify(Lang:t("not_enough_money_in_bank").." $"..costofstation, 'error', 7500) return
         end
-
         lib.registerContext({
             id = 'purchasemenu',
             title = Config.GasStations[location].label,
@@ -850,7 +823,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         })
         lib.showContext('purchasemenu')
     end)
-
     RegisterNetEvent('cdn-fuel:stations:openmenu', function() -- Menu #1, the first menu you see.
         DisablePurchase = true
         DisableOwnerMenu = true
@@ -889,7 +861,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             PumpState = "enabled."
             ShutOffDisabled = true
         end
-
         lib.registerContext({
             id = 'stationmainmenu',
             title = Config.GasStations[CurrentLocation].label,
@@ -934,7 +905,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         })
         lib.showContext('stationmainmenu')
     end)
-
     -- Threads
     CreateThread(function() -- Spawn the Peds for Gas Stations when the resource starts.
         SpawnGasStationPeds()

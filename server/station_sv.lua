@@ -1,21 +1,17 @@
 if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stations are a Config Option, instead of forced. Set this option in shared/config.lua!
-
     -- Variables
     local FuelPickupSent = {} -- This is in case of an issue with vehicles not spawning when picking up vehicles.
-
     -- Functions
     local function GlobalTax(value)
         local tax = (value / 100 * Config.GlobalTax)
         return tax
     end
-
     function math.percent(percent, maxvalue)
         if tonumber(percent) and tonumber(maxvalue) then
             return (maxvalue*percent)/100
         end
         return false
     end
-
     local function UpdateStationLabel(location, newLabel, src)
         if not newLabel or newLabel == nil then
             if Config.FuelDebug then print('Attempting to fetch label for Location #'..location) end
@@ -40,7 +36,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end
-
     -- Events
     RegisterNetEvent('cdn-fuel:server:updatelocationlabels', function()
         local src = source
@@ -50,7 +45,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             UpdateStationLabel(location, nil, src)
         end
     end)
-
     RegisterNetEvent('cdn-fuel:server:buyStation', function(location, CitizenID)
         local src = source
         local Player = exports.qbx_core:GetPlayer(src)
@@ -60,7 +54,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             MySQL.Async.execute('UPDATE fuel_stations SET owner = ? WHERE `location` = ?', {CitizenID, location})
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:server:sellstation', function(location)
         local src = source
         local Player = exports.qbx_core:GetPlayer(src)
@@ -70,12 +63,10 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             MySQL.Async.execute('UPDATE fuel_stations SET owned = ? WHERE `location` = ?', {0, location})
             MySQL.Async.execute('UPDATE fuel_stations SET owner = ? WHERE `location` = ?', {0, location})
             exports.qbx_core:Notify(src, Lang:t("station_sold_success"), 'success')
-
         else
             exports.qbx_core:Notify(src, Lang:t("station_cannot_sell"), 'error')
         end
     end)
-
     RegisterNetEvent('cdn-fuel:station:server:Withdraw', function(amount, location, StationBalance)
         local src = source
         local Player = exports.qbx_core:GetPlayer(src)
@@ -86,7 +77,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         Player.Functions.AddMoney("bank", amount, Lang:t("station_withdraw_payment_label")..Config.GasStations[location].label)
         exports.qbx_core:Notify(src, Lang:t("station_success_withdrew_1")..amount..Lang:t("station_success_withdrew_2"), 'success')
     end)
-
     RegisterNetEvent('cdn-fuel:station:server:Deposit', function(amount, location, StationBalance)
         local src = source
         local Player = exports.qbx_core:GetPlayer(src)
@@ -99,7 +89,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             exports.qbx_core:Notify(src, Lang:t("station_cannot_afford_deposit")..amount.."!", 'success')
         end
     end)
-
     RegisterNetEvent('cdn-fuel:stations:server:Shutoff', function(location)
         local src = source
         if Config.FuelDebug then print("Toggling Emergency Shutoff Valves for Location #"..location) end
@@ -109,14 +98,12 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         if Config.FuelDebug then print('Successfully altered the shutoff valve state for location #'..location..'!') end
         if Config.FuelDebug then print(Config.GasStations[location].shutoff) end
     end)
-
     RegisterNetEvent('cdn-fuel:station:server:updatefuelprice', function(fuelprice, location)
         local src = source
         if Config.FuelDebug then print('Attempting to update Location #'..location.."'s Fuel Price to a new price: $"..fuelprice) end
         MySQL.Async.execute('UPDATE fuel_stations SET fuelprice = ? WHERE `location` = ?', {fuelprice, location})
         exports.qbx_core:Notify(src, Lang:t("station_fuel_price_success")..fuelprice..Lang:t("station_per_liter"), 'success')
     end)
-
     RegisterNetEvent('cdn-fuel:station:server:updatereserves', function(reason, amount, currentlevel, location)
         if reason == "remove" then
             NewLevel = (currentlevel - amount)
@@ -129,7 +116,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         MySQL.Async.execute('UPDATE fuel_stations SET fuel = ? WHERE `location` = ?', {NewLevel, location})
         if Config.FuelDebug then print('Successfully executed the previous SQL Update!') end
     end)
-
     RegisterNetEvent('cdn-fuel:station:server:updatebalance', function(reason, amount, StationBalance, location, FuelPrice)
         if Config.FuelDebug then print("Amount: "..amount) end
         local Price = (FuelPrice * tonumber(amount))
@@ -145,8 +131,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         MySQL.Async.execute('UPDATE fuel_stations SET balance = ? WHERE `location` = ?', {NewBalance, location})
         if Config.FuelDebug then print('Successfully executed the previous SQL Update!') end
     end)
-
-
     RegisterNetEvent('cdn-fuel:stations:server:buyreserves', function(location, price, amount)
         local location = location
         local price = math.ceil(price)
@@ -194,7 +178,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             exports.qbx_core:Notify(src, Lang:t("not_enough_money"), 'error')
         end
     end)
-
     RegisterNetEvent('cdn-fuel:station:server:fuelpickup:failed', function(location)
         local src = source
         if location then
@@ -213,7 +196,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:station:server:fuelpickup:finished', function(location)
         local src = source
         if location then
@@ -234,7 +216,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:station:server:updatelocationname', function(newName, location)
         local src = source
         if Config.FuelDebug then print('Attempting to set name for Location #'..location..' to: '..newName) end
@@ -243,7 +224,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         exports.qbx_core:Notify(src, Lang:t("station_name_change_success")..newName.."!", 'success')
         TriggerClientEvent('cdn-fuel:client:updatestationlabels', -1, location, newName)
     end)
-
     -- Callbacks
     lib.callback.register('cdn-fuel:server:locationpurchased', function(source, location)
         if Config.FuelDebug then print("Working on it.") end
@@ -270,7 +250,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         end
         return false
 	end)
-
     lib.callback.register('cdn-fuel:server:doesPlayerOwnStation', function(source)
         local src = source
         local Player = exports.qbx_core:GetPlayer(src)
@@ -286,7 +265,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             return false
         end
 	end)
-
     lib.callback.register('cdn-fuel:server:isowner', function(source, location)
         local src = source
         local Player = exports.qbx_core:GetPlayer(src)
@@ -310,7 +288,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
         end
         return false
 	end)
-
     lib.callback.register('cdn-fuel:server:fetchinfo', function(source, location)
         local src = source
         local Player = exports.qbx_core:GetPlayer(src)
@@ -323,12 +300,10 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             return false
         end
 	end)
-
     lib.callback.register('cdn-fuel:server:checkshutoff', function(source, location)
         if Config.FuelDebug then print("Fetching Shutoff State for Location: "..location) end
         return Config.GasStations[location].shutoff
 	end)
-
     lib.callback.register('cdn-fuel:server:fetchlabel', function(source, location)
         if Config.FuelDebug then print("Fetching Shutoff State for Location: "..location) end
         local result = MySQL.query.await('SELECT label FROM fuel_stations WHERE location = ?', {location})
@@ -339,7 +314,6 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             return false
         end
 	end)
-
     -- Startup Process
     local function Startup()
         if Config.FuelDebug then print("Startup process...") end
@@ -349,11 +323,9 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
             UpdateStationLabel(location)
         end
     end
-
     AddEventHandler('onResourceStart', function(resource)
         if resource == GetCurrentResourceName() then
             Startup()
         end
     end)
-
 end -- For Config.PlayerOwnedGasStationsEnabled check, don't remove!\
