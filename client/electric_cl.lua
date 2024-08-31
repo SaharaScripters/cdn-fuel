@@ -28,7 +28,6 @@ if Config.ElectricVehicleCharging then
         if state == "putback" then
             --TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbackcharger", 0.4)
             Wait(250)
-            if Config.FuelTargetExport then exports[Config.TargetResource]:AllowRefuel(false, true) end
             DeleteObject(ElectricNozzle)
             HoldingElectricNozzle = false
             if Config.PumpHose == true then
@@ -343,7 +342,7 @@ if Config.ElectricVehicleCharging then
 
         local refillCost = (fuelamount * FuelPrice) + GlobalTax(fuelamount*FuelPrice)
         local vehicle = GetClosestVehicle()
-        local ped = PlayerPedId()
+        local ped = cache.ped
         local time = amount * Config.RefuelTime
         if amount < 10 then time = 10 * Config.RefuelTime end
         local vehicleCoords = GetEntityCoords(vehicle)
@@ -435,7 +434,7 @@ if Config.ElectricVehicleCharging then
     end)
 
     RegisterNetEvent('cdn-fuel:client:grabelectricnozzle', function()
-        local ped = PlayerPedId()
+        local ped = cache.ped
         if HoldingElectricNozzle then return end
         LoadAnimDict("anim@am_hold_up@male")
         TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
@@ -471,10 +470,8 @@ if Config.ElectricVehicleCharging then
             while HoldingElectricNozzle do
                 local currentcoords = GetEntityCoords(ped)
                 local dist = #(grabbedelectricnozzlecoords - currentcoords)
-                if not TargetCreated then if Config.FuelTargetExport then exports[Config.TargetResource]:AllowRefuel(true, true) end end
                 TargetCreated = true
                 if dist > 7.5 then
-                    if TargetCreated then if Config.FuelTargetExport then exports[Config.TargetResource]:AllowRefuel(false, true) end end
                     TargetCreated = true
                     HoldingElectricNozzle = false
                     DeleteObject(ElectricNozzle)
@@ -628,39 +625,28 @@ if Config.ElectricVehicleCharging then
         end
     end)
 
-    -- Target
-    local TargetResource = Config.TargetResource
-    if Config.TargetResource == 'ox_target' then
-        TargetResource = 'qb-target'
-    end
-
-    exports[TargetResource]:AddTargetModel('electric_charger', {
-        options = {
-            {
-                num = 1,
-                type = "client",
-                event = "cdn-fuel:client:grabelectricnozzle",
-                icon = "fas fa-bolt",
-                label = Lang:t("grab_electric_nozzle"),
-                canInteract = function()
-                    if not IsHoldingElectricNozzle() and not IsPedInAnyVehicle(PlayerPedId()) then
-                        return true
-                    end
-                end
-            },
-            {
-                num = 2,
-                type = "client",
-                event = "cdn-fuel:client:returnnozzle",
-                icon = "fas fa-hand",
-                label = Lang:t("return_nozzle"),
-                canInteract = function()
-                    if IsHoldingElectricNozzle() and not refueling then
-                        return true
-                    end
-                end
-            },
+    exports.ox_target:addModel('electric_charger', {
+        {
+            --num = 1,
+            icon = "fas fa-bolt",
+            label = Lang:t("grab_electric_nozzle"),
+            onSelect = function()
+                TriggerEvent('cdn-fuel:client:grabelectricnozzle')
+            end,
+            canInteract = function()
+                return not IsHoldingElectricNozzle() and not IsPedInAnyVehicle(cache.ped)
+            end
         },
-        distance = 2.0
+        {
+            --num = 2,
+            icon = "fas fa-hand",
+            label = Lang:t("return_nozzle"),
+            onSelect = function()
+                TriggerEvent('cdn-fuel:client:returnnozzle')
+            end,
+            canInteract = function()
+                return IsHoldingElectricNozzle() and not refueling
+            end
+        },
     })
 end

@@ -341,7 +341,7 @@ function ToggleEngine(veh)
                     else
                         if not NotifyCooldown then
                             RequestAmbientAudioBank("DLC_PILOT_ENGINE_FAILURE_SOUNDS", 0)
-                            PlaySoundFromEntity(l_2613, "Landing_Tone", PlayerPedId(), "DLC_PILOT_ENGINE_FAILURE_SOUNDS", 0, 0)
+                            PlaySoundFromEntity(l_2613, "Landing_Tone", cache.ped, "DLC_PILOT_ENGINE_FAILURE_SOUNDS", 0, 0)
                             NotifyCooldown = true
                             QBCore.Functions.Notify('No fuel..', 'error')
                             Wait(1500)

@@ -142,7 +142,7 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
                         RemoveBlip(ReservePickupData.blip)
                         ReservePickupData.blip = nil
                         CreateThread(function()
-                            local ped = PlayerPedId()
+                            local ped = cache.ped
                             local alreadyHasTruck = false
                             local hasArrivedAtLocation = false
                             local VehicleDelivered = false
@@ -188,7 +188,7 @@ if Config.PlayerOwnedGasStationsEnabled then -- This is so Player Owned Gas Stat
                                                                     stopNotifyTemp = false
                                                                 else
                                                                     EndAwaitListener = true
-                                                                    local ped = PlayerPedId()
+                                                                    local ped = cache.ped
                                                                     VehicleDelivered = true
                                                                     -- Handle Vehicle Dropoff
                                                                     -- Remove PolyZone --

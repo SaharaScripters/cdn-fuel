@@ -49,7 +49,7 @@ end
 
 function GetCurrentVehicleType(vehicle)
 	if not vehicle then
-		vehicle = GetVehiclePedIsIn(PlayerPedId(), true)
+		vehicle = GetVehiclePedIsIn(cache.ped, true)
 	end
 	if not vehicle then return false end
 	local vehModel = GetEntityModel(vehicle)
@@ -83,7 +83,7 @@ function CreateBlip(coords, label)
 end
 
 function GetClosestVehicle(coords)
-    local ped = PlayerPedId()
+    local ped = cache.ped
     local vehicles = GetGamePool('CVehicle')
     local closestDistance = -1
     local closestVehicle = -1
@@ -109,7 +109,7 @@ function IsPlayerNearVehicle()
 	end
 	local vehicle = GetClosestVehicle()
 	local closestVehCoords = GetEntityCoords(vehicle)
-	if #(GetEntityCoords(PlayerPedId(), closestVehCoords)) > 3.0 then
+	if #(GetEntityCoords(cache.ped, closestVehCoords)) > 3.0 then
 		return true
 	end
 	return false
