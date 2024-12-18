@@ -15,13 +15,11 @@ client_scripts {
     '@qbx_core/modules/playerdata.lua',
     'client/fuel_cl.lua',
     'client/electric_cl.lua',
-    'client/station_cl.lua',
     'client/utils.lua'
 }
 
 server_scripts {
     'server/fuel_sv.lua',
-    'server/station_sv.lua',
     'server/electric_sv.lua',
     '@oxmysql/lib/MySQL.lua'
 }

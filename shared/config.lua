@@ -12,29 +12,6 @@ Config.FuelDecor = '_FUEL_LEVEL' -- Do not touch! (Default: '_FUEL_LEVEL')
 Config.RefuelTime = 600 -- Highly recommended to leave at 600. This value will be multiplied times the amount the player is fueling for the progress bar and cancellation logic! DON'T GO BELOW 250, performance WILL drop!
 Config.FuelTargetExport = false -- DO NOT USE WITH OX_TARGET! This is only used to fix this qb-target issue: https://github.com/CodineDev/cdn-fuel/issues/3. <br> <br> If you don't have this issue and haven't installed this exports in qb-target, then this should be false. Otherwise there will be an error.
 
--- 2.1.1 Update --
-Config.OwnersPickupFuel = false -- If an owner buys fuel, they will have to go pick it up at a configured location.
-Config.PossibleDeliveryTrucks = {
-    `hauler`,
-    `phantom`,
-    `packer`,
-    -- `phantom3`, --  This is an fast version of the normal phantom.	
-}
-Config.DeliveryTruckSpawns = { -- https://i.imgur.com/VS22i8R.jpeg
-    trailer = vector4(1724.0, -1649.7, 112.57, 194.24),
-    truck = vector4(1727.08, -1664.01, 112.62, 189.62),
-    zone = {
-        points = {
-            vector3(1724.62, -1672.36, 112.50),
-            vector3(1719.01, -1648.33, 112.50),
-            vector3(1730.99, -1645.62, 112.50),
-            vector3(1734.42, -1673.32, 112.50),
-        },
-        thickness = 5.0,
-    }
-}
--- 2.1.1 End
-
 -- 2.1.0 Update
 Config.EmergencyServicesDiscount = {
     ['enabled'] = true, -- Enables Emergency Services Getting a discount based on the value below for Refueling & Electricity Charging Cost
@@ -49,15 +26,7 @@ Config.EmergencyServicesDiscount = {
         'ambulance',
     }
 }
-Config.Core = 'qbx_core' -- Change this to your core resources (Ex: 'qbx-core' | 'qb-core'), must be qb based!
-Config.Ox = {
-    Inventory = true, -- Uses OX_Inventory's metadata instead of QB-Inventory's.
-    Menu = true, -- Uses OX Libraries instead of qb-menu.
-    Input = true, -- Uses Ox Input Dialog instead of qb-input.
-    DrawText = true, -- Uses Ox DrawText instead of qb-core DrawText.
-    Progress = true -- Uses Ox ProgressBar instead of progressbar.
-}
-Config.TargetResource = 'ox_target' -- Supported: { 'qb-target', 'ox_target'} -- Others must use the same format as QB-Target or manual configuration is required.
+
 Config.PumpHose = true -- If true, it creates a hose from the pump to the nozzle the client is holding, to give it a more realistic feel.
 Config.RopeType = { -- Options: 1-2-3-4-5; 1: Khaki Color, Kind of Thick, 2: Very Thick Khaki Rope, 3: Very Thick Black Rope, 4: Very Thin Black Rope, 5: Same as 3
     ['fuel'] = 3,
@@ -102,20 +71,9 @@ Config.RefuelAnimationDictionary = 'timetable@gardener@filling_can' -- This is f
 
 --- Player Owned Gas (Gasoline) Ergonomic Refueling Stations (Poggers) ---
 Config.PlayerOwnedGasStationsEnabled = false -- When true, peds will be located at all gas stations, and players will be able to talk with peds & purchase gas stations, having to manage fuel supplies.
-Config.StationFuelSalePercentage = 0.65 -- % of sales that the station gets. If they sell 4 Liters of Gas for $16 (not including taxes), they will get 16*Config.StationFuelSalePercentage back from the sale. Treat this as tax, also, it balances the profit margins a bit.
-Config.EmergencyShutOff = false -- When true, players can walk up to the ped and shut off the pumps at a gas station. While false, this option is disabled, because it can obviously be an issue.
 Config.UnlimitedFuel = false -- When true, the fuel stations will not require refuelling by gas station owners, this is for the early stages of implementation.
 Config.MaxFuelReserves = 100000 -- This is the maximum amount that the fuel station's reserves can hold.
-Config.FuelReservesPrice = 2.0 -- This is the price of fuel reserves for gas station owners.
-Config.GasStationSellPercentage = 50 -- This is the percentage that players will get of the gas stations price, when they sell a location!
-Config.MinimumFuelPrice = 2 -- This is the minimum value you want to let players set their fuel prices to.
-Config.MaxFuelPrice = 8 -- This is the maximum value you want to let players set their fuel prices to.
-Config.PlayerControlledFuelPrices = true -- This gives you the option to disable people being able to control fuel prices. When true, players can control the fuel prices via to management menu for the location.
-Config.GasStationNameChanges = true -- This gives you the option to disable people being able to change the name of their gas station, only recommended if it becomes a problem.
-Config.NameChangeMinChar = 10 -- This is the minimum length that a Gas Station's name must be.
-Config.NameChangeMaxChar = 25 -- This is the maximum length that a Gas Station's name must be.
 Config.WaitTime = 400 -- This is the wait time after callbacks, if you are having issues with menus not popping up, or being greyed out, up this to around ~300, it is not recommended to go over ~750, as menus will get slower and more unresponsive the higher you go. (Fixes this issue: https://www.shorturl.at/eqS19)
-Config.OneStationPerPerson = true -- This prevents players that already own one station from buying another, to prevent monopolies over Gas Stations.
 
 --- Electric Vehicles
 Config.ElectricVehicleCharging = true -- When true, electric vehicles will actually consume resources and decrease 'Fuel / Battery' while driving. This means players will have to recharge their vehicle!
@@ -180,7 +138,7 @@ Config.ElectricVehicles = { -- List of Electric Vehicles in the Base Game.
     },
 }
 Config.ElectricSprite = 620 -- This is for when the player is in an electric charger, the blips with change to this sprite. (Sprite with a car with a bolt going through it: 620)
-Config.ElectricChargerModel = true -- If you wish, you can set this to false to add your own props, or use a ymap for the props instead.
+Config.ElectricChargerModel = false -- If you wish, you can set this to false to add your own props, or use a ymap for the props instead.
 
 -- Basic Configuration Settings
 -- Turn on Config.FuelDebug and use this command to get the name for here: getVehNameForBlacklist
@@ -190,7 +148,7 @@ Config.NoFuelUsage = { -- This is for you to put vehicles that you don't want to
     },
     ['cruiser'] = {
         blacklisted = true
-    },	
+    },
 }
 
 Config.Classes = { -- Class multipliers. If you want SUVs to use less fuel, you can change it to anything under 1.0, and vise versa.
@@ -697,7 +655,7 @@ Config.AirAndWaterVehicleFueling = {
                 ['model'] = 'prop_gas_pump_1d',
                 ['coords'] = vector4(1338.13, 4269.62, 30.5, 85.00),
             }
-        },--]]		
+        },--]]
     },
     ['refuel_button'] = 47, -- 'G' Button for Draw Text.
     ['nozzle_length'] = 20.0, -- The max distance you can go from the 'Special Pump' before the nozzle in returned to the pump.
@@ -720,10 +678,10 @@ Config.GasStations = { -- Configuration options for various gas station related 
         cost = 100000,
         shutoff = false,
         pedcoords = {
-            x = 167.06,
-            y = -1553.56,
-            z = 28.26,
-            h = 220.44,
+            x = -829.21,
+            y = -2330.93,
+            z = 14.57,
+            h = 154.0,
         },
         electriccharger = nil,
         electricchargercoords = vector4(175.9, -1546.65, 28.26, 224.29),
@@ -1372,9 +1330,32 @@ Config.GasStations = { -- Configuration options for various gas station related 
 				vector3(743.29998779296, -2040.0500488282, 29.7),
 				vector3(745.59997558594, -2038.75, 29.7),
 				vector3(747.09997558594, -2036.650024414, 29.7),
-				vector3(747.90002441406, -2034.150024414, 29.7),				
+				vector3(747.90002441406, -2034.150024414, 29.7),
             },
             thickness = 2.75,
+        },
+        pedmodel = 'a_m_m_indian_01',
+        cost = 100000,
+        shutoff = false,
+        pedcoords = {
+            x = 721.88,
+            y = -2016.35,
+            z = 28.43,
+            h = 265,
+        },
+        electriccharger = nil,
+        electricchargercoords = vector4(715.21, -2022.59, 28.40, 270),
+        label = 'Popular St Ron',
+    },
+    [29] = {
+        zone = {
+            points = {
+                vec3(-823.45001220704, -2337.6000976562, 15.25),
+                vec3(-819.95001220704, -2331.5, 15.25),
+                vec3(-835.29998779296, -2322.6000976562, 15.25),
+                vec3(-838.70001220704, -2329.1000976562, 15.25),
+            },
+            thickness = 3.45,
         },
         pedmodel = 'a_m_m_indian_01',
         cost = 100000,

@@ -439,8 +439,7 @@ RegisterNetEvent('cdn-fuel:client:grabnozzle', function()
 	if not ShutOff then
 		local ped = cache.ped
 		if holdingnozzle then return end
-		LoadAnimDict("anim@am_hold_up@male")
-		TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
+		lib.playAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
 		--TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
 		Wait(300)
 		StopAnimTask(ped, "anim@am_hold_up@male", "shoplift_high", 1.0)
@@ -876,8 +875,6 @@ RegisterNetEvent('cdn-fuel:client:RefuelVehicle', function(data)
 	local vehicleCoords = GetEntityCoords(vehicle)
 	if inGasStation then
 		if IsPlayerNearVehicle() then
-			RequestAnimDict(Config.RefuelAnimationDictionary)
-			while not HasAnimDictLoaded(Config.RefuelAnimationDictionary) do Wait(100) end
 			if GetIsVehicleEngineRunning(vehicle) and Config.VehicleBlowUp then
 				local Chance = math.random(1, 100)
 				if Chance <= Config.BlowUpChance then
@@ -894,7 +891,7 @@ RegisterNetEvent('cdn-fuel:client:RefuelVehicle', function(data)
 				TaskTurnPedToFaceCoord(cache.ped, vehBootCoords, 500)
 				Wait(500)
 			end
-			TaskPlayAnim(ped, Config.RefuelAnimationDictionary, Config.RefuelAnimation, 8.0, 1.0, -1, 1, 0, 0, 0, 0)
+			lib.playAnim(ped, Config.RefuelAnimationDictionary, Config.RefuelAnimation, 8.0, 1.0, -1, 1, 0, 0, 0, 0)
 			refueling = true
 			Refuelamount = 0
 			CreateThread(function()
@@ -1519,8 +1516,7 @@ end)
 RegisterNetEvent('cdn-fuel:client:grabnozzle:special', function()
 	local ped = cache.ped
 	if HoldingSpecialNozzle then return end
-	LoadAnimDict("anim@am_hold_up@male")
-	TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
+	lib.playAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
 	--TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
 	Wait(300)
 	StopAnimTask(ped, "anim@am_hold_up@male", "shoplift_high", 1.0)

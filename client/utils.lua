@@ -9,13 +9,6 @@ function SetFuel(vehicle, fuel)
 	end
 end
 
-function LoadAnimDict(dict)
-	while (not HasAnimDictLoaded(dict)) do
-		RequestAnimDict(dict)
-		Wait(5)
-	end
-end
-
 function GlobalTax(value)
 	if Config.GlobalTax < 0.1 then
 		return 0
@@ -54,7 +47,6 @@ function GetCurrentVehicleType(vehicle)
 	if not vehicle then return false end
 	local vehModel = GetEntityModel(vehicle)
 	local vehiclename = string.lower(GetDisplayNameFromVehicleModel(vehModel))
-
 	if Config.ElectricVehicles[vehiclename] and Config.ElectricVehicles[vehiclename].isElectric then
 		return 'electricvehicle'
 	else
@@ -127,13 +119,11 @@ function IsVehicleBlacklisted(veh)
 				return true
 			end
 		end
-
 		if Config.NoFuelUsage[veh] and Config.NoFuelUsage[veh].blacklisted then
 			if Config.FuelDebug then print("Vehicle: "..veh.." is in the Blacklist.") end
 			-- If the veh equals a vehicle in the list then return true.
 			return true
 		end
-
 		-- Default False
 		if Config.FuelDebug then print("Vehicle is not blacklisted.") end
 		return false

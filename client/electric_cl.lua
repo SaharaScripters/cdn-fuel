@@ -5,11 +5,9 @@ if Config.ElectricVehicleCharging then
     local RefuelPossibleAmount = 0
     local RefuelCancelled = false
     local RefuelPurchaseType = 'bank'
-
     if Config.PumpHose then
         Rope = nil
     end
-
     -- Start
     AddEventHandler('onResourceStart', function(resource)
         if resource == GetCurrentResourceName() then
@@ -18,12 +16,10 @@ if Config.ElectricVehicleCharging then
             HoldingElectricNozzle = false
         end
     end)
-
     -- Functions
     function IsHoldingElectricNozzle()
         return HoldingElectricNozzle
     end exports('IsHoldingElectricNozzle', IsHoldingElectricNozzle)
-
     function SetElectricNozzle(state)
         if state == "putback" then
             --TriggerServerEvent("InteractSound_SV:PlayOnSource", "putbackcharger", 0.4)
@@ -41,7 +37,6 @@ if Config.ElectricVehicleCharging then
             if Config.FuelDebug then print("State is not valid, it must be pickup or putback.") end
         end
     end exports('SetElectricNozzle', SetElectricNozzle)
-
     -- Events
     RegisterNetEvent('cdn-electric:client:OpenContextMenu', function(total, fuelamounttotal, purchasetype)
         lib.registerContext({
@@ -72,19 +67,16 @@ if Config.ElectricVehicleCharging then
         })
         lib.showContext('electricconfirmationmenu')
     end)
-
     RegisterNetEvent('cdn-fuel:client:electric:FinalMenu', function(purchasetype)
         local money = nil
         if purchasetype == "bank" then money = QBX.PlayerData.money['bank'] elseif purchasetype == 'cash' then money = QBX.PlayerData.money['cash'] end
         FuelPrice = (1 * Config.ElectricChargingPrice)
         local vehicle = GetClosestVehicle()
-
         -- Police Discount Math --
         if Config.EmergencyServicesDiscount['enabled'] == true and (Config.EmergencyServicesDiscount['emergency_vehicles_only'] == false or (Config.EmergencyServicesDiscount['emergency_vehicles_only'] == true and GetVehicleClass(vehicle) == 18)) then
             local discountedJobs = Config.EmergencyServicesDiscount['job']
             local plyJob = QBX.PlayerData.job.name
             local shouldRecieveDiscount = false
-
             if type(discountedJobs) == "table" then
                 for i = 1, #discountedJobs, 1 do
                     if plyJob == discountedJobs[i] then
@@ -95,12 +87,10 @@ if Config.ElectricVehicleCharging then
             elseif plyJob == discountedJobs then
                 shouldRecieveDiscount = true
             end
-
             if shouldRecieveDiscount == true and not QBX.PlayerData.job.onduty and Config.EmergencyServicesDiscount['ondutyonly'] then
                 exports.qbx_core:Notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
 				shouldRecieveDiscount = false
 			end
-
             if shouldRecieveDiscount then
                 local discount = Config.EmergencyServicesDiscount['discount']
                 if discount > 100 then
@@ -129,7 +119,6 @@ if Config.ElectricVehicleCharging then
                 end
             end
         end
-
         local curfuel = GetFuel(vehicle)
         local finalfuel
         if curfuel < 10 then finalfuel = string.sub(curfuel, 1, 1) else finalfuel = string.sub(curfuel, 1, 2) end
@@ -153,10 +142,8 @@ if Config.ElectricVehicleCharging then
             max = maxfuel
             },
         })
-
         if not Electricity then return end
         ElectricityAmount = tonumber(Electricity[4])
-
         if Electricity then
             if not ElectricityAmount then if Config.FuelDebug then print("ElectricityAmount is invalid!") end return end
             if not HoldingElectricNozzle then exports.qbx_core:Notify(Lang:t("electric_no_nozzle"), 'error', 7500) return end
@@ -171,7 +158,6 @@ if Config.ElectricVehicleCharging then
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:client:electric:SendMenuToServer', function()
         local vehicle = GetClosestVehicle()
         local vehModel = GetEntityModel(vehicle)
@@ -236,7 +222,6 @@ if Config.ElectricVehicleCharging then
                     if Config.FuelDebug then print("^2An electric vehicle^5 has NOT been found. ^5This means charging will not be allowed.") end
                     goto ChargingMenu -- Attempt to go to the charging menu, now that we have not found that there was an electric vehicle.
                 end
-
                 -- for i = 1, #Config.ElectricVehicles do
                 --     if AwaitingElectricCheck then
                 --         if Config.FuelDebug then print(i) end
@@ -264,7 +249,6 @@ if Config.ElectricVehicleCharging then
             end
         end
     end)
-
     RegisterNetEvent('cdn-fuel:client:electric:ChargeVehicle', function(data)
         if Config.FuelDebug then print("Charging Vehicle") end
         if not Config.RenewedPhonePayment then
@@ -288,13 +272,11 @@ if Config.ElectricVehicleCharging then
         if amount < 10 then fuelamount = string.sub(amount, 1, 1) else fuelamount = string.sub(amount, 1, 2) end
         local FuelPrice = (Config.ElectricChargingPrice * 1)
         local vehicle = GetClosestVehicle()
-
         -- Police Discount Math --
         if Config.EmergencyServicesDiscount['enabled'] == true and (Config.EmergencyServicesDiscount['emergency_vehicles_only'] == false or (Config.EmergencyServicesDiscount['emergency_vehicles_only'] == true and GetVehicleClass(vehicle) == 18)) then
             local discountedJobs = Config.EmergencyServicesDiscount['job']
             local plyJob = QBX.PlayerData.job.name
             local shouldRecieveDiscount = false
-
             if type(discountedJobs) == "table" then
                 for i = 1, #discountedJobs, 1 do
                     if plyJob == discountedJobs[i] then
@@ -305,12 +287,10 @@ if Config.ElectricVehicleCharging then
             elseif plyJob == discountedJobs then
                 shouldRecieveDiscount = true
             end
-
             if shouldRecieveDiscount == true and not QBX.PlayerData.job.onduty and Config.EmergencyServicesDiscount['ondutyonly'] then
                 exports.qbx_core:Notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
 				shouldRecieveDiscount = false
 			end
-
             if shouldRecieveDiscount then
                 local discount = Config.EmergencyServicesDiscount['discount']
                 if discount > 100 then
@@ -339,7 +319,6 @@ if Config.ElectricVehicleCharging then
                 end
             end
         end
-
         local refillCost = (fuelamount * FuelPrice) + GlobalTax(fuelamount*FuelPrice)
         local vehicle = GetClosestVehicle()
         local ped = cache.ped
@@ -348,8 +327,6 @@ if Config.ElectricVehicleCharging then
         local vehicleCoords = GetEntityCoords(vehicle)
         if IsInGasStation() then
             if IsPlayerNearVehicle() then
-                RequestAnimDict(Config.RefuelAnimationDictionary)
-                while not HasAnimDictLoaded('timetable@gardener@filling_can') do Wait(100) end
                 if GetIsVehicleEngineRunning(vehicle) and Config.VehicleBlowUp then
                     local Chance = math.random(1, 100)
                     if Chance <= Config.BlowUpChance then
@@ -357,7 +334,7 @@ if Config.ElectricVehicleCharging then
                         return
                     end
                 end
-                TaskPlayAnim(ped, Config.RefuelAnimationDictionary, Config.RefuelAnimation, 8.0, 1.0, -1, 1, 0, 0, 0, 0)
+                lib.playAnim(ped, Config.RefuelAnimationDictionary, Config.RefuelAnimation, 8.0, 1.0, -1, 1, 0, 0, 0, 0)
                 refueling = true
                 Refuelamount = 0
                 CreateThread(function()
@@ -432,16 +409,14 @@ if Config.ElectricVehicleCharging then
             end
         else return end
     end)
-
     RegisterNetEvent('cdn-fuel:client:grabelectricnozzle', function()
         local ped = cache.ped
         if HoldingElectricNozzle then return end
-        LoadAnimDict("anim@am_hold_up@male")
-        TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
+        lib.playAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
         --TriggerServerEvent("InteractSound_SV:PlayOnSource", "pickupnozzle", 0.4)
         Wait(300)
         StopAnimTask(ped, "anim@am_hold_up@male", "shoplift_high", 1.0)
-        ElectricNozzle = CreateObject(joaat('electric_nozzle'), 1.0, 1.0, 1.0, true, true, false)
+        ElectricNozzle = CreateObject(`mtx_prop_electric_plug`, 1.0, 1.0, 1.0, true, true, false)
         local lefthand = GetPedBoneIndex(ped, 18905)
         AttachEntityToEntity(ElectricNozzle, ped, lefthand, 0.24, 0.10, -0.052 --[[FWD BWD]], -45.0 --[[ClockWise]], 120.0 --[[Weird Middle Axis]], 75.00 --[[Counter Clockwise]], 0, 1, 0, 1, 0, 1)
         local grabbedelectricnozzlecoords = GetEntityCoords(ped)
@@ -486,7 +461,6 @@ if Config.ElectricVehicleCharging then
             end
         end)
     end)
-
     RegisterNetEvent('cdn-fuel:client:electric:RefuelMenu', function()
         if Config.RenewedPhonePayment then
             if not RefuelPossible then
@@ -509,17 +483,14 @@ if Config.ElectricVehicleCharging then
             TriggerEvent("cdn-fuel:client:electric:SendMenuToServer")
         end
     end)
-
     if Config.RenewedPhonePayment then
         RegisterNetEvent('cdn-fuel:client:electric:phone:PayForFuel', function(amount)
             FuelPrice = Config.ElectricChargingPrice
-
             -- Police Discount Math --
             if Config.EmergencyServicesDiscount['enabled'] == true then
                 local discountedJobs = Config.EmergencyServicesDiscount['job']
                 local plyJob = QBX.PlayerData.job.name
                 local shouldRecieveDiscount = false
-
                 if type(discountedJobs) == "table" then
                     for i = 1, #discountedJobs, 1 do
                         if plyJob == discountedJobs[i] then
@@ -530,12 +501,10 @@ if Config.ElectricVehicleCharging then
                 elseif plyJob == discountedJobs then
                     shouldRecieveDiscount = true
                 end
-
                 if shouldRecieveDiscount == true and not QBX.PlayerData.job.onduty and Config.EmergencyServicesDiscount['ondutyonly'] then
                     exports.qbx_core:Notify(Lang:t("you_are_discount_eligible"), 'primary', 7500)
                     shouldRecieveDiscount = false
                 end
-
                 if shouldRecieveDiscount then
                     local discount = Config.EmergencyServicesDiscount['discount']
                     if discount > 100 then
@@ -581,19 +550,16 @@ if Config.ElectricVehicleCharging then
             end
         end)
     end
-
     -- Threads
-    if Config.ElectricChargerModel then
+    --[[if Config.ElectricChargerModel then
         CreateThread(function()
             RequestModel('electric_charger')
             while not HasModelLoaded('electric_charger') do
                 Wait(50)
             end
-
             if Config.FuelDebug then
                 print("Electric Charger Model Loaded!")
             end
-
             for i = 1, #Config.GasStations do
                 if Config.GasStations[i].electricchargercoords ~= nil then
                     if Config.FuelDebug then print(i) end
@@ -605,10 +571,8 @@ if Config.ElectricVehicleCharging then
                 end
             end
         end)
-    end
-
+    end--]]
     -- Resource Stop
-
     AddEventHandler('onResourceStop', function(resource)
         if resource == GetCurrentResourceName() then
             for i = 1, #Config.GasStations do
@@ -617,15 +581,20 @@ if Config.ElectricVehicleCharging then
                     if IsHoldingElectricNozzle() then DeleteEntity(ElectricNozzle) end
                 end
             end
-
             if Config.PumpHose then
                 RopeUnloadTextures()
                 DeleteObject(Rope)
             end
         end
     end)
-
-    exports.ox_target:addModel('electric_charger', {
+    local electricalTerminals = {
+        `mtx_prop_electric_terminal1`,
+        `mtx_prop_electric_terminal2`,
+        `mtx_prop_electric_terminal3`,
+        `mtx_prop_electric_terminal4`,
+        `mtx_prop_electric_terminal5`,
+    }
+    exports.ox_target:addModel(electricalTerminals, {
         {
             --num = 1,
             icon = "fas fa-bolt",
